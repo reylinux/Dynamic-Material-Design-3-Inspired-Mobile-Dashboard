@@ -1,0 +1,2 @@
+type: custom:decluttering-card
+template: mobile_navbar
