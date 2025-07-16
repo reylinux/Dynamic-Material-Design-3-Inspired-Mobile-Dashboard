@@ -6,19 +6,51 @@ cards:
       - type: custom:decluttering-card
         template: room_summary_card
         variables:
-          - room_name: Garage
-          - temperature_sensor: sensor.garage_temperature
-          - humidity_sensor: sensor.garage_humidity
-          - navigation_path: /mobile-dashboard/garage
+          - room_name: Living Area
+          - temperature_sensor: sensor.living_room_temperature
+          - humidity_sensor: sensor.living_area_humidity
+          - navigation_path: /mobile-dashboard/living-area
       - type: custom:decluttering-card
         template: big_icon_toggle_card
         variables:
-          - entity: switch.light_switch_grg
-          - icon: mdi:garage-variant
+          - entity: light.lights_sofa
+          - icon: mdi:sofa
   - type: custom:mushroom-chips-card
     chips:
       - type: template
-        entity: switch.light_switch_grg
+        entity: climate.living_room
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: |
+          {% if is_state(entity, 'heat_cool') %}
+            mdi:heat-pump
+          {% else %}
+            mdi:heat-pump-outline
+          {% endif %}
+        card_mod:
+          style: |
+            ha-card {
+              --chip-background: 
+                {% if is_state('climate.living_room', 'heat_cool') and is_state('climate.heat_pump', 'cool') %} #b5e0f7 
+                {% elif is_state('climate.living_room', 'heat_cool') and is_state('climate.heat_pump', 'heat') %} #fa6f66
+                {% elif is_state('climate.living_room', 'heat_cool') and is_state('climate.heat_pump', 'fan_only') %} #DEDEDE
+                {% elif is_state('climate.living_room', 'heat_cool') and is_state('climate.heat_pump', 'off') %} var(--primary-text-color)
+                {% else %} #353535 
+                {% endif %};
+              --color: {% if is_state('climate.living_room', 'heat_cool') %} var(--primary-text-color){% else %} #dbdbdb {% endif %};
+              justify-content: center;
+              height: 35px !important;
+              width: 35px !important;
+              border: 0 !important;
+              box-shadow: none !important;
+              border-radius: 22px !important;
+            }
+      - type: template
+        entity: light.lights_sofa
         tap_action:
           action: toggle
         hold_action:
@@ -29,8 +61,8 @@ cards:
         card_mod:
           style: |
             ha-card {
-              --chip-background: {% if is_state('switch.light_switch_grg', 'on') %} #D3C890 {% else %} #353535 {% endif %};
-              --color: {% if is_state('switch.light_switch_grg', 'on') %} #5b5326 {% else %} #dbdbdb {% endif %};
+              --chip-background: {% if is_state('light.lights_sofa', 'on') %} #D3C890 {% else %} #353535 {% endif %};
+              --color: {% if is_state('light.lights_sofa', 'on') %} #5b5326 {% else %} #dbdbdb {% endif %};
               justify-content: center;
               height: 35px !important;
               width: 35px !important;
@@ -39,7 +71,7 @@ cards:
               border-radius: 22px !important;
             }
       - type: template
-        entity: binary_sensor.doors_grg
+        entity: binary_sensor.doors_la
         tap_action:
           action: none
         hold_action:
@@ -48,15 +80,15 @@ cards:
           action: none
         icon: |
           {% if is_state(entity, 'on') %}
-            mdi:door-open
+            mdi:door-sliding-open
           {% else %}
-            mdi:door-closed
-          {% endif %}
+            mdi:door-sliding
+          {% endif %}          
         card_mod:
           style: |
             ha-card {
-              --chip-background: {% if is_state('binary_sensor.doors_grg', 'on') %} #bc000a {% else %} #353535 {% endif %};
-              --color: {% if is_state('binary_sensor.doors_grg', 'on') %} #ffffff {% else %} #dbdbdb {% endif %};
+              --chip-background: {% if is_state('binary_sensor.doors_la', 'on') %} #bc000a {% else %} #353535 {% endif %};
+              --color: {% if is_state('binary_sensor.doors_la', 'on') %} #ffffff {% else %} #dbdbdb {% endif %};
               justify-content: center;
               height: 35px !important;
               width: 35px !important;
@@ -65,11 +97,11 @@ cards:
               border-radius: 22px !important;
             }
             ha-card:after {
-              content: "{{ '' if (expand(states.binary_sensor.doors_grg) | selectattr('state', 'eq', 'on') | list | count) == 0 else expand(states.binary_sensor.doors_grg) | selectattr('state', 'eq', 'on') | list | count }}";
+              content: "{{ '' if (expand(states.binary_sensor.doors_la) | selectattr('state', 'eq', 'on') | list | count) == 0 else expand(states.binary_sensor.doors_la) | selectattr('state', 'eq', 'on') | list | count }}";
               position: absolute;
               top: -10%;
               right: -10%;
-              display:  {% if is_state('binary_sensor.doors_grg', 'on') %} flex {% else %} none {% endif %};
+              display:  {% if is_state('binary_sensor.doors_la', 'on') %} flex {% else %} none {% endif %};
               justify-content: center;
               align-items: center;
               width: 14px;
@@ -77,11 +109,11 @@ cards:
               font-size: 9px;
               font-weight: 700;
               border-radius: 50%;
-              background: {% if is_state('binary_sensor.doors_grg', 'on') %} #ffffff {% else %} var(--primary-text-color) {% endif %};
+              background: {% if is_state('binary_sensor.doors_la', 'on') %} #ffffff {% else %} var(--primary-text-color) {% endif %};
               color: #b02e25;
             }
       - type: template
-        entity: binary_sensor.windows_grg
+        entity: binary_sensor.windows_la
         tap_action:
           action: none
         hold_action:
@@ -97,8 +129,8 @@ cards:
         card_mod:
           style: |
             ha-card {
-              --chip-background: {% if is_state('binary_sensor.windows_grg', 'on') %} #ffaa00 {% else %} #353535 {% endif %};
-              --color: {% if is_state('binary_sensor.windows_grg', 'on') %} #694300 {% else %} #dbdbdb {% endif %};
+              --chip-background: {% if is_state('binary_sensor.windows_la', 'on') %} #ffaa00 {% else %} #353535 {% endif %};
+              --color: {% if is_state('binary_sensor.windows_la', 'on') %} #694300 {% else %} #dbdbdb {% endif %};
               justify-content: center;
               height: 35px !important;
               width: 35px !important;
@@ -107,11 +139,11 @@ cards:
               border-radius: 22px !important;
             }
             ha-card:after {
-              content: "{{ '' if (expand(states.binary_sensor.windows_grg) | selectattr('state', 'eq', 'on') | list | count) == 0 else expand(states.binary_sensor.windows_grg) | selectattr('state', 'eq', 'on') | list | count }}";
+              content: "{{ '' if (expand(states.binary_sensor.windows_la) | selectattr('state', 'eq', 'on') | list | count) == 0 else expand(states.binary_sensor.windows_la) | selectattr('state', 'eq', 'on') | list | count }}";
               position: absolute;
               top: -10%;
               right: -10%;
-              display:  {% if is_state('binary_sensor.windows_grg', 'on') %} flex {% else %} none {% endif %};
+              display:  {% if is_state('binary_sensor.windows_la', 'on') %} flex {% else %} none {% endif %};
               justify-content: center;
               align-items: center;
               width: 14px;
@@ -119,7 +151,7 @@ cards:
               font-size: 9px;
               font-weight: 700;
               border-radius: 50%;
-              background: {% if is_state('binary_sensor.windows_grg', 'on') %} #fdcc8b {% else %} var(--primary-text-color) {% endif %};
+              background: {% if is_state('binary_sensor.windows_la', 'on') %} #fdcc8b {% else %} var(--primary-text-color) {% endif %};
               color: #78551f;
             }
     card_mod:
@@ -138,7 +170,7 @@ card_mod:
   style: |
     ha-card {
       background:
-      {% set temp = states('sensor.garage_temperature') | float %}
+      {% set temp = states('sensor.living_room_temperature') | float %}
         {% if temp < 13 %}
           rgba(172, 156, 175, 0.8)
         {% elif temp < 16 %}          
@@ -153,7 +185,7 @@ card_mod:
           rgba(247, 190, 129, 0.8)
         {% else %}
           rgba(224, 102, 102, 0.8)
-        {% endif %};            
+        {% endif %};             
       max-width: 100%;
       min-width: 50%;
       height: 186px;
