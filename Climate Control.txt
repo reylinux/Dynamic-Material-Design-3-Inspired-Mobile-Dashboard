@@ -1,0 +1,114 @@
+type: custom:vertical-stack-in-card
+cards:
+  - type: grid
+    square: false
+    columns: 2
+    cards:
+      - type: custom:mushroom-template-card
+        entity: sensor.house_average_temperature
+        primary: |
+          {{ states(entity) | round(1) }}°C 
+        secondary: |
+          {{ state_attr(entity,'friendly_name') }} 
+        icon: |
+          {% set hvac_mode = states('climate.heat_pump') %}
+          {% if hvac_mode == 'heat' %} mdi:fire
+          {% elif hvac_mode == 'cool' %} mdi:snowflake
+          {% elif hvac_mode == 'fan_only' %} mdi:fan
+          {% else %} mdi:thermometer
+          {% endif %}
+        icon_color: |
+          {% set hvac_mode = states('climate.heat_pump') %}
+          {% if hvac_mode == 'heat' %} #2196f3
+          {% elif hvac_mode == 'cool' %} #12c8da
+          {% elif hvac_mode == 'fan_only' %} #029688
+          {% else %}
+            {% set temp = states('sensor.house_average_temperature') | float %}
+            {% if temp < 16 %} #CEB2F5
+            {% elif temp < 18 %} #5EBDEE
+            {% elif temp < 22 %} #9cc8b8
+            {% elif temp < 24 %} #e7b562
+            {% elif temp < 27 %} #FF564B
+            {% else %} #99332d
+            {% endif %}
+          {% endif %}
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.outdoor_temperature
+        primary: |
+          {{ states(entity) | round(1) }}°C 
+        secondary: |
+          Outdoor Feels Like
+        icon: "{{ states('sensor.weather_condition_icon') }}"
+        icon_color: |
+          {% set temp = states('sensor.outdoor_temperature') | float %}
+          {% if temp < 16 %} #907CAB
+          {% elif temp < 18 %} #4790b6
+          {% elif temp < 22 %} #77998c
+          {% elif temp < 24 %} #b08a4a
+          {% elif temp < 27 %} #c34139      
+          {% else %} #752722 {% endif %}
+        tap_action:
+          action: navigate
+          navigation_path: /mobile-dashboard/weather
+  - type: custom:config-template-card
+    entities:
+      - sensor.house_average_temperature
+      - sensor.outdoor_temperature
+      - climate.heat_pump
+    variables:
+      - states['climate.heat_pump'].state
+      - states['sensor.house_average_temperature'].state
+      - states['sensor.outdoor_temperature'].state
+    card:
+      type: custom:mini-graph-card
+      entities:
+        - entity: sensor.house_average_temperature
+          name: House Average Temperature
+          color: |-
+            ${vars[0] === 'heat' ? '#2196f3' : 
+              (vars[0] === 'cool' ? '#12c8da' : 
+              (vars[0] === 'fan_only' ? '#029688' : 
+              (vars[1] < 16 ? '#CEB2F5' :
+              (vars[1] < 18 ? '#5EBDEE' :
+              (vars[1] < 22 ? '#9cc8b8' :
+              (vars[1] < 24 ? '#e7b562' :
+              (vars[1] < 27 ? '#FF564B' : '#99332d')))))))}
+        - entity: sensor.outdoor_temperature
+          name: Outdoor Temperature
+          color: |-
+            ${vars[2] < 16 ? '#907CAB' :
+              (vars[2] < 18 ? '#4790b6' :        
+              (vars[2] < 22 ? '#77998c' :
+              (vars[2] < 24 ? '#b08a4a' :
+              (vars[2] < 27 ? '#c34139' :'#752722'))))}
+          y_axis: secondary
+      hours_to_show: 24
+      line_width: 3
+      font_size: 50
+      animate: true
+      show:
+        name: false
+        icon: false
+        state: false
+        legend: false
+        fill: fade
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-climate-card
+        entity: climate.heat_pump
+        primary_info: none
+        secondary_info: none
+        icon_type: none
+        show_temperature_control: true
+      - type: custom:mushroom-climate-card
+        entity: climate.heat_pump
+        primary_info: none
+        secondary_info: none
+        icon_type: none
+        hvac_modes:
+          - cool
+          - heat
+          - fan_only
+          - "off"
