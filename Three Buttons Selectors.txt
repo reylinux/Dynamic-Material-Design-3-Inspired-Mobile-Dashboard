@@ -1,0 +1,241 @@
+type: horizontal-stack
+cards:
+  - type: custom:local-conditional-card
+    id: home
+    default: show
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:paper-buttons-row
+          styles:
+            background-color: rgba(215, 215, 215, 0.3)
+            border: 4px solid none
+            border-radius: 20px
+            justify-content: center
+            width: max-content
+            margin: 0 auto 12px auto
+          buttons:
+            - layout: name
+              name: Home
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: show
+                    - environment: hide
+                    - active: hide
+              styles:
+                name:
+                  color: "{{ states('sensor.theme_tertiary_color') }}"
+                  padding: 0 22px
+                  font-weight: bold
+                button:
+                  background: "{{ states('sensor.theme_on_tertiary_color') }}"
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+            - layout: name
+              name: Environment
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: hide
+                    - environment: show
+                    - active: hide
+              styles:
+                name:
+                  color: var(--primary-text-color)
+                  padding: 0 22px
+                button:
+                  background: none
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+            - layout: name
+              name: Active
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: hide
+                    - environment: hide
+                    - active: show
+              styles:
+                name:
+                  color: var(--primary-text-color)
+                  padding: 0 22px
+                button:
+                  background: none
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+        - type: ""
+    hide_in_preview: true
+  - type: custom:local-conditional-card
+    id: environment
+    default: hide
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:paper-buttons-row
+          styles:
+            background-color: rgba(215, 215, 215, 0.3)
+            border: 4px solid none
+            border-radius: 20px
+            justify-content: center
+            width: max-content
+            margin: 0 auto 12px auto
+          buttons:
+            - layout: name
+              name: Home
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: show
+                    - environment: hide
+                    - active: hide
+              styles:
+                name:
+                  color: var(--primary-text-color)
+                  padding: 0 22px
+                button:
+                  background: none
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+            - layout: name
+              name: Environment
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: hide
+                    - environment: show
+                    - active: hide
+              styles:
+                name:
+                  color: "{{ states('sensor.theme_tertiary_color') }}"
+                  padding: 0 22px
+                  font-weight: bold
+                button:
+                  background: "{{ states('sensor.theme_on_tertiary_color') }}"
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+            - layout: name
+              name: Active
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: hide
+                    - environment: hide
+                    - active: show
+              styles:
+                name:
+                  color: var(--primary-text-color)
+                  padding: 0 22px
+                button:
+                  background: none
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+        - type: ""
+    hide_in_preview: true
+  - type: custom:local-conditional-card
+    id: active
+    default: hide
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:paper-buttons-row
+          styles:
+            background-color: rgba(215, 215, 215, 0.3)
+            border: 4px solid none
+            border-radius: 20px
+            justify-content: center
+            width: max-content
+            margin: 0 auto 12px auto
+          buttons:
+            - layout: name
+              name: Home
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: show
+                    - environment: hide
+                    - active: hide
+              styles:
+                name:
+                  color: var(--primary-text-color)
+                  padding: 0 22px
+                button:
+                  background: none
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+            - layout: name
+              name: Environment
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: hide
+                    - environment: show
+                    - active: hide
+              styles:
+                name:
+                  color: var(--primary-text-color)
+                  padding: 0 22px
+                button:
+                  background: none
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+            - layout: name
+              name: Active
+              ripple: none
+              tap_action:
+                action: fire-dom-event
+                local_conditional_card:
+                  action: set
+                  ids:
+                    - home: hide
+                    - environment: hide
+                    - active: show
+              styles:
+                name:
+                  color: "{{ states('sensor.theme_tertiary_color') }}"
+                  font-weight: bold
+                  padding: 0 22px
+                button:
+                  background: "{{ states('sensor.theme_on_tertiary_color') }}"
+                  border-radius: 24px
+                  height: 24px
+                  display: flex
+        - type: ""
+    hide_in_preview: true
+card_mod:
+  style: |
+    ha-card {
+      margin-top: 10px !important;
+    }
