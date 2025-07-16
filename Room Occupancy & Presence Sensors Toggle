@@ -1,0 +1,230 @@
+type: custom:simple-swipe-card
+cards:
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:mushroom-template-card
+        layout: horizontal
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        primary: Room Occupancy
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+            }
+            .card-content {
+              background: transparent !important;
+            }
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: input_boolean.baby_room_occupancy
+            icon: mdi:baby-carriage
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+                #f385bc
+              {% else %}
+               var(--primary-text-color)
+              {% endif %}    
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Baby Room
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: input_boolean.master_bedroom_occupancy
+            icon: mdi:bed-king
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+                #89CFF0
+              {% else %}
+               var(--primary-text-color)
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Master Bedroom
+              {% else %}
+              {% endif %}            
+          - type: template
+            entity: input_boolean.single_guest_room_occupancy
+            icon: mdi:account-plus
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+                #FFA500
+              {% else %}
+               var(--primary-text-color)
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Single Guest
+              {% else %}
+              {% endif %}     
+          - type: template
+            entity: input_boolean.multiple_guest_room_occupancy
+            icon: mdi:account-group
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+                #A52A2A
+              {% else %}
+               var(--primary-text-color)
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Multiple Guest
+              {% else %}
+              {% endif %}       
+        alignment: start
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+            }
+            .chip-container {
+              background: transparent !important;
+            }
+    card_mod:
+      style: |
+        ha-card {
+          background: transparent !important;
+          box-shadow: none !important;
+          margin-top: 10px !important;
+        }
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:mushroom-template-card
+        primary: Presence Status
+        layout: horizontal
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+            }
+            .card-content {
+              background: transparent !important;
+            }
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: binary_sensor.presence_active_la
+            icon: mdi:sofa
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+               var(--primary-text-color)
+              {% endif %}
+            tap_action:
+              action: perform-action
+              perform_action: script.toggle_presence_sensor_la
+              target: {}
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Living Area
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: automation.room_presence_master_bedroom
+            icon: mdi:bed-king
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+               var(--primary-text-color)
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Master Bedroom
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: automation.room_presence_baby_room
+            icon: mdi:baby-carriage
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+               var(--primary-text-color)
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Baby Room
+              {% else %}
+              {% endif %}      
+          - type: template
+            entity: automation.room_presence_single_guest_room
+            icon: mdi:account-plus
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+               var(--primary-text-color)
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Single Guest
+              {% else %}
+              {% endif %}
+        alignment: start
+        card_mod:
+          style: |
+            ha-card {
+              background: transparent !important;
+              box-shadow: none !important;
+            }
+            .chip-container {
+              background: transparent !important;
+            }
+      - type: custom:button-card
+        show_name: false
+        show_icon: false
+        tap_action:
+          action: none
+        styles:
+          card:
+            - background: none
+            - box-shadow: none
+    card_mod:
+      style: |
+        ha-card {
+          background: transparent !important;
+          box-shadow: none !important;
+        }
+show_pagination: true
+card_spacing: 15
+enable_loopback: false
+swipe_direction: horizontal
+enable_auto_swipe: false
+auto_swipe_interval: 2000
+enable_reset_after: false
+reset_after_timeout: 30000
+reset_target_card: 1
+card_mod:
+  style: |
+    :host {
+      --simple-swipe-card-pagination-dot-active-color: var(--primary-text-color);
+      --simple-swipe-card-pagination-dot-size: 7px;
+      --simple-swipe-card-transition-speed: 0.5s;
+    }  
