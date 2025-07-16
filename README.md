@@ -57,11 +57,11 @@ Without further ado, let's dive in!
 
 The homepage includes:
 
-- [Alarm & notification indicators](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Alarm%20&%20Notification%20Indicators.txt)
+- [Alarm & notification indicators.](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Alarm%20&%20Notification%20Indicators.txt)
+  _To get the notification count, you need to define your own entity. Use [this](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Active%20Notiifcation%20Count%20Sensor.txt) an example and put it your templates.yaml_
 - [Weather Forecast with Buttons](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Weather%20Forecast%20Buttons)
 - [Three-button color selector (Home, Environment, Active)](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Three%20Buttons%20Selectors.txt)
-- [Climate control section with indoor/outdoor temperature](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Climate%20Control.txt)
-
+- [Climate control section with indoor/outdoor temperature.](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Climate%20Control.txt)
   _For the outdoor weather condition icon, you will need this [template sensor](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Weather%20Condition%20Icon%20Sensor) to get it working._
 - [Room occupancy & presence sensor toggles (sliders)](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Room%20Occupancy%20%26%20Presence%20Sensors%20Toggle)  
 - A hidden calendar beneath the [navbar](https://github.com/reylinux/Dynamic-Material-Design-3-Inspired-Mobile-Dashboard/blob/main/Navbar.txt), accessible on interaction  
