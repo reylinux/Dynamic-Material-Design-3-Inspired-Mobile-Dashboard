@@ -1,0 +1,10 @@
+  theme_base_color:
+    name: "Theme Base Color"
+    options:
+      - "Blue"
+      - "Green"
+      - "Grey"
+      - "Indigo"
+      - "Orange"
+      - "Pink"
+      - "Yellow"

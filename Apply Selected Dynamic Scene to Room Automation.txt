@@ -1,0 +1,314 @@
+alias: Apply Selected Dynamic Scene to Room
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.sofa_dynamic_scene
+  - trigger: state
+    entity_id:
+      - input_boolean.dining_table_dynamic_scene
+  - trigger: state
+    entity_id:
+      - input_boolean.master_bedroom_dynamic_scene
+  - trigger: state
+    entity_id:
+      - input_boolean.baby_room_dynamic_scene
+  - trigger: state
+    entity_id:
+      - input_boolean.single_guest_room_dynamic_scene
+  - trigger: state
+    entity_id:
+      - input_boolean.multiple_guest_room_dynamic_scene
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.sofa_dynamic_scene' and
+                 trigger.from_state.state == 'off' }}
+        sequence:
+          - data:
+              room_lights:
+                - light.light_one_sofa
+                - light.light_two_sofa
+                - light.light_three_sofa
+                - light.light_four_sofa
+              presence_automation: automation.room_presence_sofa
+            action: script.apply_selected_dynamic_scene_to_room
+        alias: Sofa On
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.sofa_dynamic_scene' and
+                 trigger.from_state.state == 'on' }}
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: state
+                    entity_id: binary_sensor.presence_sensor_sofa_radar_target
+                    state: "on"
+                sequence:
+                  - action: scene_presets.stop_all_dynamic_scenes
+                    metadata: {}
+                    data: {}
+                  - action: light.turn_on
+                    metadata: {}
+                    data:
+                      brightness_pct: 100
+                      color_temp_kelvin: "{{ states('sensor.sun_based_color_temperature') | int }}"
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.lights_sofa
+                alias: Presence
+              - conditions:
+                  - condition: state
+                    entity_id: binary_sensor.presence_sensor_sofa_radar_target
+                    state: "off"
+                alias: No Presence
+                sequence:
+                  - action: scene_presets.stop_all_dynamic_scenes
+                    metadata: {}
+                    data: {}
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_one_sofa
+                  - delay:
+                      seconds: 2
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_two_sofa
+                  - delay:
+                      seconds: 2
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_four_sofa
+                  - delay:
+                      seconds: 2
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_three_sofa
+        alias: Sofa Off
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.dining_table_dynamic_scene' and
+                 trigger.from_state.state == 'off' }}
+        sequence:
+          - data:
+              room_lights:
+                - light.light_one_dt
+                - light.light_two_dt
+                - light.light_three_dt
+                - light.light_one_ktc_dt
+                - light.light_two_ktc_dt
+                - light.light_three_ktc_dt
+              presence_automation: automation.room_presence_dining_table
+            action: script.apply_selected_dynamic_scene_to_room
+        alias: Dining Table On
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.dining_table_dynamic_scene' and
+                 trigger.from_state.state == 'on' }}
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: state
+                    entity_id: binary_sensor.presence_sensors_dining_table
+                    state: "on"
+                sequence:
+                  - action: scene_presets.stop_all_dynamic_scenes
+                    metadata: {}
+                    data: {}
+                  - action: light.turn_on
+                    metadata: {}
+                    data:
+                      brightness_pct: 100
+                      color_temp_kelvin: "{{ states('sensor.sun_based_color_temperature') | int }}"
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.lights_dt_only
+                alias: Presence
+              - conditions:
+                  - condition: state
+                    entity_id: binary_sensor.presence_sensors_dining_table
+                    state: "off"
+                alias: No Presence
+                sequence:
+                  - action: scene_presets.stop_all_dynamic_scenes
+                    metadata: {}
+                    data: {}
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_three_ktc_dt
+                  - delay:
+                      seconds: 2
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_two_ktc_dt
+                  - delay:
+                      seconds: 2
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_one_ktc_dt
+                  - delay:
+                      seconds: 2
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_one_dt
+                  - delay:
+                      seconds: 2
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_two_dt
+                  - delay:
+                      seconds: 2
+                  - action: light.turn_off
+                    metadata: {}
+                    data:
+                      transition: 3
+                    target:
+                      entity_id:
+                        - light.light_three_dt
+        alias: Dining Table Off
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.master_bedroom_dynamic_scene' and
+                 trigger.from_state.state == 'off' }}
+        sequence:
+          - data:
+              room_lights:
+                - light.light_one_mbr
+                - light.light_two_mbr
+              presence_automation: automation.room_presence_master_bedroom
+            action: script.apply_selected_dynamic_scene_to_room
+        alias: Master Bedroom On
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.master_bedroom_dynamic_scene' and
+                 trigger.from_state.state == 'on' }}
+        sequence:
+          - action: scene_presets.stop_all_dynamic_scenes
+            metadata: {}
+            data: {}
+          - action: light.turn_off
+            metadata: {}
+            data:
+              transition: 3
+            target:
+              entity_id:
+                - light.lights_mbr
+        alias: Master Bedroom Off
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.baby_room_dynamic_scene' and
+                 trigger.from_state.state == 'off' }}
+        sequence:
+          - data:
+              room_lights:
+                - light.light_one_br
+                - light.light_two_br
+              presence_automation: automation.room_presence_baby_room
+            action: script.apply_selected_dynamic_scene_to_room
+        alias: Baby Room On
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.baby_room_dynamic_scene' and
+                 trigger.from_state.state == 'on' }}
+        sequence:
+          - action: scene_presets.stop_all_dynamic_scenes
+            metadata: {}
+            data: {}
+          - action: light.turn_off
+            metadata: {}
+            data:
+              transition: 3
+            target:
+              entity_id:
+                - light.lights_br
+        alias: Baby Room Off
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.single_guest_room_dynamic_scene' and
+                 trigger.from_state.state == 'off' }}
+        sequence:
+          - data:
+              room_lights:
+                - light.light_one_sgr
+                - light.light_two_sgr
+              presence_automation: automation.room_presence_single_guest_room
+            action: script.apply_selected_dynamic_scene_to_room
+        alias: Single Guest Room On
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.from_state.entity_id ==
+              'input_boolean.single_guest_room_dynamic_scene' and
+                 trigger.from_state.state == 'on' }}
+        sequence:
+          - action: scene_presets.stop_all_dynamic_scenes
+            metadata: {}
+            data: {}
+          - action: light.turn_off
+            metadata: {}
+            data:
+              transition: 3
+            target:
+              entity_id:
+                - light.lights_sgr
+        alias: Single Guest Room Off
+mode: parallel
+max: 10

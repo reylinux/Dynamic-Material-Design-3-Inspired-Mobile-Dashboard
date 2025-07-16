@@ -1,0 +1,43 @@
+type: conditional
+conditions:
+  - condition: or
+    conditions:
+      - condition: state
+        entity: sensor.home_metservice_weather_warnings
+        state: unavailable
+      - condition: state
+        entity: sensor.home_metservice_weather_warnings
+        state: unknown
+card:
+  type: custom:expander-card
+  child-margin-top: 0.6em
+  padding: 0
+  clear: true
+  title-card-button-overlay: true
+  title-card-clickable: true
+  expanded: true
+  card_mod:
+    style: |
+      button.open {
+        background: {{ states('sensor.theme_on_primary_color') }} !important;
+      }
+      button.close {
+        background: {{ states('sensor.theme_on_primary_color') }} !important;
+      }
+  title-card:
+    type: custom:mushroom-title-card
+    title: Weather Status
+    card_mod:
+      style: |
+        ha-card {
+          --title-font-size: 20px !important;
+           transform: translateY(-16px);
+        }
+  cards:
+    - type: markdown
+      content: |
+
+        {{ states('sensor.home_weather_description') }}
+
+
+        {{ states('sensor.home_pollen_type') }}

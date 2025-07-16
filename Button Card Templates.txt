@@ -1,0 +1,78 @@
+button_card_templates:
+  light_on_button:
+    tap_action:
+      action: none
+    styles:
+      grid:
+        - grid-template-columns: 64px 1fr
+        - grid-template-areas: '"i n"'
+      card:
+        - background: none
+        - height: 75px
+        - position: absolute
+        - z-index: 1
+      img_cell:
+        - width: 22px
+      icon:
+        - width: 22px
+        - color: var(--card-background-color)
+      name:
+        - justify-self: start
+        - font-size: 14px
+        - font-weight: 400
+        - color: var(--card-background-color)
+  light_off_button:
+    tap_action:
+      action: none
+    styles:
+      grid:
+        - grid-template-columns: 64px 1fr
+        - grid-template-areas: '"i n"'
+      card:
+        - background: var(--card-background-color)
+        - height: 75px
+        - position: absolute
+        - z-index: 1
+      img_cell:
+        - width: 22px
+      icon:
+        - width: 22px
+        - color: var(--primary-text-color)
+      name:
+        - justify-self: start
+        - font-size: 14px
+        - font-weight: 400
+        - color: var(--primary-text-color)
+  standard_light_button:
+    tap_action:
+      action: toggle
+    variables:
+      bg_on: '[[[ return states[''sensor.theme_on_primary_color''].state; ]]]'
+      icon_on: '[[[ return states[''sensor.theme_primary_color''].state; ]]]'
+      name_on: '[[[ return states[''sensor.theme_primary_color''].state; ]]]'
+    styles:
+      grid:
+        - grid-template-columns: 64px 1fr
+        - grid-template-areas: '"i n"'
+      card:
+        - background: var(--card-background-color)
+        - height: 75px
+      img_cell:
+        - width: 22px
+      icon:
+        - width: 22px
+        - color: var(--primary-text-color)
+      name:
+        - justify-self: start
+        - font-size: 14px
+        - font-weight: 400
+        - color: var(--primary-text-color)
+    state:
+      - value: 'on'
+        styles:
+          card:
+            - background: '[[[ return variables.bg_on; ]]]'
+          icon:
+            - color: '[[[ return variables.icon_on; ]]]'
+          name:
+            - color: '[[[ return variables.icon_on; ]]]'

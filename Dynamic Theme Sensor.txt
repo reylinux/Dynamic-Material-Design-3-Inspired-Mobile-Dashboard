@@ -1,0 +1,131 @@
+- trigger:
+    - platform: state
+      entity_id: input_select.theme_base_color
+  sensor:
+    - name: "Theme Primary Color"
+      unique_id: theme_primary_color
+      state: >
+        {% set theme = trigger.to_state.state | lower %}
+        {% set color_map = {
+          'blue': '#415f91',
+          'green': '#4c662b',
+          'grey': '#006874',
+          'indigo': '#65558f',
+          'orange': '#815512',
+          'pink': '#8e4956',
+          'teal': '#096b5a',
+          'yellow': '#6d5e0f'
+        } %}
+        {{ color_map.get(theme, '#65558f') }}
+
+    - name: "Theme Secondary Color"
+      unique_id: theme_secondary_color
+      state: >
+        {% set theme = trigger.to_state.state | lower %}
+        {% set color_map = {
+          'blue': '#565f71',
+          'green': '#586249',
+          'grey': '#4a6267',
+          'indigo': '#625b71',
+          'orange': '#705b41',
+          'pink': '#75565b',
+          'teal': '#4b635c',
+          'yellow': '#665e40'
+        } %}
+        {{ color_map.get(theme, '#625b71') }}
+
+    - name: "Theme Tertiary Color"
+      unique_id: theme_tertiary_color
+      state: >
+        {% set theme = trigger.to_state.state | lower %}
+        {% set color_map = {
+          'blue': '#705575',
+          'green': '#386663',
+          'grey': '#525e7d',
+          'indigo': '#7e5260',
+          'orange': '#53643e',
+          'pink': '#795831',
+          'teal': '#426278',
+          'yellow': '#43664e'
+        } %}
+        {{ color_map.get(theme, '#7e5260') }}
+
+    - name: "Theme On Primary Color"
+      unique_id: theme_on_primary_color
+      state: >
+        {% set theme = trigger.to_state.state | lower %}
+        {% set color_map = {
+          'blue': '#d6e3ff',
+          'green': '#cdeda3',
+          'grey': '#9eeffd',
+          'indigo': '#e9ddff',
+          'orange': '#ffddb7',
+          'pink': '#ffd9de',
+          'teal': '#a1f2dd',
+          'yellow': '#f8e287'
+        } %}
+        {{ color_map.get(theme, '#e9ddff') }}
+
+    - name: "Theme On Secondary Color"
+      unique_id: theme_on_secondary_color
+      state: >
+        {% set theme = trigger.to_state.state | lower %}
+        {% set color_map = {
+          'blue': '#dae2f9',
+          'green': '#dce7c8',
+          'grey': '#cde7ec',
+          'indigo': '#e8def8',
+          'orange': '#fcdebc',
+          'pink': '#ffd9de',
+          'teal': '#cde8df',
+          'yellow': '#eee2bc'
+        } %}
+        {{ color_map.get(theme, '#e8def8') }}
+
+    - name: "Theme On Tertiary Color"
+      unique_id: theme_on_tertiary_color
+      state: >
+        {% set theme = trigger.to_state.state | lower %}
+        {% set color_map = {
+          'blue': '#fad8fd',
+          'green': '#bcece7',
+          'grey': '#dae2ff',
+          'indigo': '#ffd9e3',
+          'orange': '#d6e9b9',
+          'pink': '#ffddba',
+          'teal': '#c7e7ff',
+          'yellow': '#c5ecce'
+        } %}
+        {{ color_map.get(theme, '#ffd9e3') }}
+
+    - name: "Theme On Gradient Progress"
+      unique_id: theme_on_gradient_progress
+      state: >
+        {% set theme = trigger.to_state.state | lower %}
+        {% set color_map = {
+          'blue': 'linear-gradient(145deg,rgba(65, 95, 145, 0.75) 0%, rgba(214, 227, 255, 1) 100%)',
+          'green': 'linear-gradient(145deg,rgba(76, 102, 43, 0.75) 0%, rgba(205, 237, 163, 1) 100%)',
+          'grey': 'linear-gradient(145deg,rgba(0, 104, 116, 0.75) 0%, rgba(158, 239, 253, 1) 100%)',
+          'indigo': 'linear-gradient(145deg,rgba(101, 85, 143, 0.75) 0%, rgba(233, 221, 255, 1) 100%)',
+          'orange': 'linear-gradient(145deg,rgba(129, 85, 18, 0.75) 0%, rgba(255, 221, 183, 1) 100%)',
+          'pink': 'linear-gradient(145deg,rgba(142, 73, 86, 0.75) 0%, rgba(255, 217, 222, 1) 100%)',
+          'teal': 'linear-gradient(145deg,rgba(9, 107, 90, 0.75) 0%, rgba(161, 242, 221, 1) 100%)',
+          'yellow': 'linear-gradient(145deg,rgba(109, 94, 15, 0.75) 0%, rgba(248, 226, 135, 1) 100%)'
+        } %}
+        {{ color_map.get(theme, 'linear-gradient(145deg,rgba(101, 85, 143, 0.75) 0%, rgba(233, 221, 255, 1) 100%)') }}
+    - name: "Theme On Gradient Track"
+      unique_id: theme_on_gradient_track
+      state: >
+        {% set theme = trigger.to_state.state | lower %}
+        {% set color_map = {
+          'blue': 'linear-gradient(145deg,rgba(32, 64, 120, 1) 0%, rgba(230, 238, 252, 1) 100%)',
+          'green': 'linear-gradient(145deg,rgba(42, 56, 19, 1) 0%, rgba(233, 255, 199, 1) 100%)',
+          'grey': 'linear-gradient(145deg,rgba(0, 56, 64, 1) 0%, rgba(212, 255, 255, 1) 100%)',
+          'indigo': 'linear-gradient(145deg,rgba(72, 52, 112, 1) 0%, rgba(255, 250, 250, 1) 100%)',
+          'orange': 'linear-gradient(145deg,rgba(82, 50, 11, 1) 0%, rgba(255, 238, 219, 1) 100%)',
+          'pink': 'linear-gradient(145deg,rgba(97, 32, 44, 1) 0%, rgba(255, 247, 247, 1) 100%)',
+          'teal': 'linear-gradient(145deg,rgba(5, 84, 71, 1) 0%, rgba(194, 255, 239, 1) 100%)',
+          'yellow': 'linear-gradient(145deg,rgba(87, 75, 7, 1) 0%, rgba(255, 245, 204, 1) 100%)'
+        } %}
+        {{ color_map.get(theme, 'linear-gradient(145deg,rgba(72, 52, 112, 1) 0%, rgba(255, 250, 250, 1) 100%)') }}
+

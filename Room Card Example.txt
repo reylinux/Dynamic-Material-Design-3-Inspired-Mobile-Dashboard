@@ -1,0 +1,160 @@
+type: custom:stack-in-card
+mode: horizontal
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:decluttering-card
+        template: room_summary_card
+        variables:
+          - room_name: Garage
+          - temperature_sensor: sensor.garage_temperature
+          - humidity_sensor: sensor.garage_humidity
+          - navigation_path: /mobile-dashboard/garage
+      - type: custom:decluttering-card
+        template: big_icon_toggle_card
+        variables:
+          - entity: switch.light_switch_grg
+          - icon: mdi:garage-variant
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: template
+        entity: switch.light_switch_grg
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:light-recessed
+        card_mod:
+          style: |
+            ha-card {
+              --chip-background: {% if is_state('switch.light_switch_grg', 'on') %} #D3C890 {% else %} #353535 {% endif %};
+              --color: {% if is_state('switch.light_switch_grg', 'on') %} #5b5326 {% else %} #dbdbdb {% endif %};
+              justify-content: center;
+              height: 35px !important;
+              width: 35px !important;
+              border: 0 !important;
+              box-shadow: none !important;
+              border-radius: 22px !important;
+            }
+      - type: template
+        entity: binary_sensor.doors_grg
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: |
+          {% if is_state(entity, 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+        card_mod:
+          style: |
+            ha-card {
+              --chip-background: {% if is_state('binary_sensor.doors_grg', 'on') %} #bc000a {% else %} #353535 {% endif %};
+              --color: {% if is_state('binary_sensor.doors_grg', 'on') %} #ffffff {% else %} #dbdbdb {% endif %};
+              justify-content: center;
+              height: 35px !important;
+              width: 35px !important;
+              border: 0 !important;
+              box-shadow: none !important;
+              border-radius: 22px !important;
+            }
+            ha-card:after {
+              content: "{{ '' if (expand(states.binary_sensor.doors_grg) | selectattr('state', 'eq', 'on') | list | count) == 0 else expand(states.binary_sensor.doors_grg) | selectattr('state', 'eq', 'on') | list | count }}";
+              position: absolute;
+              top: -10%;
+              right: -10%;
+              display:  {% if is_state('binary_sensor.doors_grg', 'on') %} flex {% else %} none {% endif %};
+              justify-content: center;
+              align-items: center;
+              width: 14px;
+              height: 14px;
+              font-size: 9px;
+              font-weight: 700;
+              border-radius: 50%;
+              background: {% if is_state('binary_sensor.doors_grg', 'on') %} #ffffff {% else %} var(--primary-text-color) {% endif %};
+              color: #b02e25;
+            }
+      - type: template
+        entity: binary_sensor.windows_grg
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: |
+          {% if is_state(entity, 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+        card_mod:
+          style: |
+            ha-card {
+              --chip-background: {% if is_state('binary_sensor.windows_grg', 'on') %} #ffaa00 {% else %} #353535 {% endif %};
+              --color: {% if is_state('binary_sensor.windows_grg', 'on') %} #694300 {% else %} #dbdbdb {% endif %};
+              justify-content: center;
+              height: 35px !important;
+              width: 35px !important;
+              border: 0 !important;
+              box-shadow: none !important;
+              border-radius: 22px !important;
+            }
+            ha-card:after {
+              content: "{{ '' if (expand(states.binary_sensor.windows_grg) | selectattr('state', 'eq', 'on') | list | count) == 0 else expand(states.binary_sensor.windows_grg) | selectattr('state', 'eq', 'on') | list | count }}";
+              position: absolute;
+              top: -10%;
+              right: -10%;
+              display:  {% if is_state('binary_sensor.windows_grg', 'on') %} flex {% else %} none {% endif %};
+              justify-content: center;
+              align-items: center;
+              width: 14px;
+              height: 14px;
+              font-size: 9px;
+              font-weight: 700;
+              border-radius: 50%;
+              background: {% if is_state('binary_sensor.windows_grg', 'on') %} #fdcc8b {% else %} var(--primary-text-color) {% endif %};
+              color: #78551f;
+            }
+    card_mod:
+      style: |
+        .chip-container {
+          flex-flow: column wrap-reverse !important;
+          display: flex !important;
+          --chip-spacing: 8px;
+          margin: 12px;
+        }
+        .: |
+        .container {
+          align: end;
+        }
+card_mod:
+  style: |
+    ha-card {
+      background:
+      {% set temp = states('sensor.garage_temperature') | float %}
+        {% if temp < 13 %}
+          rgba(172, 156, 175, 0.8)
+        {% elif temp < 16 %}          
+          rgba(215, 196, 219, 0.8)
+        {% elif temp < 18 %}
+          rgba(163, 217, 245, 0.8)
+        {% elif temp < 22 %}
+          rgba(205, 227, 219, 0.8)
+        {% elif temp < 24 %}
+          rgba(255, 229, 153, 0.8)
+        {% elif temp < 27 %}
+          rgba(247, 190, 129, 0.8)
+        {% else %}
+          rgba(224, 102, 102, 0.8)
+        {% endif %};            
+      max-width: 100%;
+      min-width: 50%;
+      height: 186px;
+    }

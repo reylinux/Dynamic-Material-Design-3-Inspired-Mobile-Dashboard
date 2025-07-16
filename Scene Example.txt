@@ -1,0 +1,744 @@
+type: custom:simple-swipe-card
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: picture
+            image: /local/hue/raw/Rolling hills.png
+            tap_action:
+              action: call-service
+              service: input_text.set_value
+              data:
+                entity_id: input_text.dynamic_scene_selected
+                value: rolling_hills
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:table-chair
+                icon_color: >-
+                  {% if is_state('input_text.dining_table_dynamic_scene_active',
+                  'rolling_hills') %}
+                    #d53e4f
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_dt
+                      - light.light_two_dt
+                      - light.light_three_dt
+                      - light.light_one_ktc_dt
+                      - light.light_two_ktc_dt
+                      - light.light_three_ktc_dt
+                    presence_automation:
+                      - automation.room_presence_dining_table
+                      - automation.room_presence_dining_table_kitchen
+                    room_boolean: input_boolean.dining_table_dynamic_scene
+                    room_scene_tracker: input_text.dining_table_dynamic_scene_active
+              - type: template
+                icon: mdi:sofa
+                icon_color: >-
+                  {% if is_state('input_text.sofa_dynamic_scene_active',
+                  'rolling_hills') %}
+                    #fc8d59
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sofa
+                      - light.light_two_sofa
+                      - light.light_three_sofa
+                      - light.light_four_sofa
+                    presence_automation: automation.room_presence_sofa
+                    room_boolean: input_boolean.sofa_dynamic_scene
+                    room_scene_tracker: input_text.sofa_dynamic_scene_active
+              - type: template
+                icon: mdi:bed-king
+                icon_color: >-
+                  {% if
+                  is_state('input_text.master_bedroom_dynamic_scene_active',
+                  'rolling_hills') %}
+                    #fee08b
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_mbr
+                      - light.light_two_mbr
+                    presence_automation: automation.room_presence_master_bedroom
+                    room_boolean: input_boolean.master_bedroom_dynamic_scene
+                    room_scene_tracker: input_text.master_bedroom_dynamic_scene_active
+              - type: template
+                icon: mdi:baby-carriage
+                icon_color: >-
+                  {% if is_state('input_text.baby_room_dynamic_scene_active',
+                  'rolling_hills') %}
+                    #e6f598
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_br
+                      - light.light_two_br
+                    presence_automation: automation.room_presence_baby_room
+                    room_boolean: input_boolean.baby_room_dynamic_scene
+                    room_scene_tracker: input_text.baby_room_dynamic_scene_active
+              - type: template
+                icon: mdi:account-plus
+                icon_color: >-
+                  {% if
+                  is_state('input_text.single_guest_room_dynamic_scene_active',
+                  'rolling_hills') %}
+                    #99d594
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sgr
+                      - light.light_two_sgr
+                    presence_automation: automation.room_presence_single_guest_room
+                    room_boolean: input_boolean.single_guest_room_dynamic_scene
+                    room_scene_tracker: input_text.single_guest_room_dynamic_scene_active
+          - type: custom:button-card
+            show_name: false
+            show_icon: false
+            tap_action:
+              action: none
+            styles:
+              card:
+                - background: none
+                - box-shadow: none
+      - type: vertical-stack
+        cards:
+          - type: picture
+            image: /local/hue/raw/Dreamy dusk.png
+            tap_action:
+              action: call-service
+              service: input_text.set_value
+              data:
+                entity_id: input_text.dynamic_scene_selected
+                value: dreamy_dusk
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:table-chair
+                icon_color: >-
+                  {% if is_state('input_text.dining_table_dynamic_scene_active',
+                  'dreamy_dusk') %}
+                    #d53e4f
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_dt
+                      - light.light_two_dt
+                      - light.light_three_dt
+                      - light.light_one_ktc_dt
+                      - light.light_two_ktc_dt
+                      - light.light_three_ktc_dt
+                    presence_automation:
+                      - automation.room_presence_dining_table
+                      - automation.room_presence_dining_table_kitchen
+                    room_boolean: input_boolean.dining_table_dynamic_scene
+                    room_scene_tracker: input_text.dining_table_dynamic_scene_active
+              - type: template
+                icon: mdi:sofa
+                icon_color: >-
+                  {% if is_state('input_text.sofa_dynamic_scene_active',
+                  'dreamy_dusk') %}
+                    #fc8d59
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sofa
+                      - light.light_two_sofa
+                      - light.light_three_sofa
+                      - light.light_four_sofa
+                    presence_automation: automation.room_presence_sofa
+                    room_boolean: input_boolean.sofa_dynamic_scene
+                    room_scene_tracker: input_text.sofa_dynamic_scene_active
+              - type: template
+                icon: mdi:bed-king
+                icon_color: >-
+                  {% if
+                  is_state('input_text.master_bedroom_dynamic_scene_active',
+                  'dreamy_dusk') %}
+                    #fee08b
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_mbr
+                      - light.light_two_mbr
+                    presence_automation: automation.room_presence_master_bedroom
+                    room_boolean: input_boolean.master_bedroom_dynamic_scene
+                    room_scene_tracker: input_text.master_bedroom_dynamic_scene_active
+              - type: template
+                icon: mdi:baby-carriage
+                icon_color: >-
+                  {% if is_state('input_text.baby_room_dynamic_scene_active',
+                  'dreamy_dusk') %}
+                    #e6f598
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_br
+                      - light.light_two_br
+                    presence_automation: automation.room_presence_baby_room
+                    room_boolean: input_boolean.baby_room_dynamic_scene
+                    room_scene_tracker: input_text.baby_room_dynamic_scene_active
+              - type: template
+                icon: mdi:account-plus
+                icon_color: >-
+                  {% if
+                  is_state('input_text.single_guest_room_dynamic_scene_active',
+                  'dreamy_dusk') %}
+                    #99d594
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sgr
+                      - light.light_two_sgr
+                    presence_automation: automation.room_presence_single_guest_room
+                    room_boolean: input_boolean.single_guest_room_dynamic_scene
+                    room_scene_tracker: input_text.single_guest_room_dynamic_scene_active
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: picture
+            image: /local/hue/raw/Savannah sunset.png
+            tap_action:
+              action: call-service
+              service: input_text.set_value
+              data:
+                entity_id: input_text.dynamic_scene_selected
+                value: savannah_sunset
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:table-chair
+                icon_color: >-
+                  {% if is_state('input_text.dining_table_dynamic_scene_active',
+                  'savannah_sunset') %}
+                    #d53e4f
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_dt
+                      - light.light_two_dt
+                      - light.light_three_dt
+                      - light.light_one_ktc_dt
+                      - light.light_two_ktc_dt
+                      - light.light_three_ktc_dt
+                    presence_automation:
+                      - automation.room_presence_dining_table
+                      - automation.room_presence_dining_table_kitchen
+                    room_boolean: input_boolean.dining_table_dynamic_scene
+                    room_scene_tracker: input_text.dining_table_dynamic_scene_active
+              - type: template
+                icon: mdi:sofa
+                icon_color: >-
+                  {% if is_state('input_text.sofa_dynamic_scene_active',
+                  'savannah_sunset') %}
+                    #fc8d59
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sofa
+                      - light.light_two_sofa
+                      - light.light_three_sofa
+                      - light.light_four_sofa
+                    presence_automation: automation.room_presence_sofa
+                    room_boolean: input_boolean.sofa_dynamic_scene
+                    room_scene_tracker: input_text.sofa_dynamic_scene_active
+              - type: template
+                icon: mdi:bed-king
+                icon_color: >-
+                  {% if
+                  is_state('input_text.master_bedroom_dynamic_scene_active',
+                  'savannah_sunset') %}
+                    #fee08b
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_mbr
+                      - light.light_two_mbr
+                    presence_automation: automation.room_presence_master_bedroom
+                    room_boolean: input_boolean.master_bedroom_dynamic_scene
+                    room_scene_tracker: input_text.master_bedroom_dynamic_scene_active
+              - type: template
+                icon: mdi:baby-carriage
+                icon_color: >-
+                  {% if is_state('input_text.baby_room_dynamic_scene_active',
+                  'savannah_sunset') %}
+                    #e6f598
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_br
+                      - light.light_two_br
+                    presence_automation: automation.room_presence_baby_room
+                    room_boolean: input_boolean.baby_room_dynamic_scene
+                    room_scene_tracker: input_text.baby_room_dynamic_scene_active
+              - type: template
+                icon: mdi:account-plus
+                icon_color: >-
+                  {% if
+                  is_state('input_text.single_guest_room_dynamic_scene_active',
+                  'savannah_sunset') %}
+                    #99d594
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sgr
+                      - light.light_two_sgr
+                    presence_automation: automation.room_presence_single_guest_room
+                    room_boolean: input_boolean.single_guest_room_dynamic_scene
+                    room_scene_tracker: input_text.single_guest_room_dynamic_scene_active
+          - type: custom:button-card
+            show_name: false
+            show_icon: false
+            tap_action:
+              action: none
+            styles:
+              card:
+                - background: none
+                - box-shadow: none
+      - type: vertical-stack
+        cards:
+          - type: picture
+            image: /local/hue/raw/Ruby glow.png
+            tap_action:
+              action: call-service
+              service: input_text.set_value
+              data:
+                entity_id: input_text.dynamic_scene_selected
+                value: ruby_glow
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:table-chair
+                icon_color: >-
+                  {% if is_state('input_text.dining_table_dynamic_scene_active',
+                  'ruby_glow') %}
+                    #d53e4f
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_dt
+                      - light.light_two_dt
+                      - light.light_three_dt
+                      - light.light_one_ktc_dt
+                      - light.light_two_ktc_dt
+                      - light.light_three_ktc_dt
+                    presence_automation:
+                      - automation.room_presence_dining_table
+                      - automation.room_presence_dining_table_kitchen
+                    room_boolean: input_boolean.dining_table_dynamic_scene
+                    room_scene_tracker: input_text.dining_table_dynamic_scene_active
+              - type: template
+                icon: mdi:sofa
+                icon_color: >-
+                  {% if is_state('input_text.sofa_dynamic_scene_active',
+                  'ruby_glow') %}
+                    #fc8d59
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sofa
+                      - light.light_two_sofa
+                      - light.light_three_sofa
+                      - light.light_four_sofa
+                    presence_automation: automation.room_presence_sofa
+                    room_boolean: input_boolean.sofa_dynamic_scene
+                    room_scene_tracker: input_text.sofa_dynamic_scene_active
+              - type: template
+                icon: mdi:bed-king
+                icon_color: >-
+                  {% if
+                  is_state('input_text.master_bedroom_dynamic_scene_active',
+                  'ruby_glow') %}
+                    #fee08b
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_mbr
+                      - light.light_two_mbr
+                    presence_automation: automation.room_presence_master_bedroom
+                    room_boolean: input_boolean.master_bedroom_dynamic_scene
+                    room_scene_tracker: input_text.master_bedroom_dynamic_scene_active
+              - type: template
+                icon: mdi:baby-carriage
+                icon_color: >-
+                  {% if is_state('input_text.baby_room_dynamic_scene_active',
+                  'ruby_glow') %}
+                    #e6f598
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_br
+                      - light.light_two_br
+                    presence_automation: automation.room_presence_baby_room
+                    room_boolean: input_boolean.baby_room_dynamic_scene
+                    room_scene_tracker: input_text.baby_room_dynamic_scene_active
+              - type: template
+                icon: mdi:account-plus
+                icon_color: >-
+                  {% if
+                  is_state('input_text.single_guest_room_dynamic_scene_active',
+                  'ruby_glow') %}
+                    #99d594
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sgr
+                      - light.light_two_sgr
+                    presence_automation: automation.room_presence_single_guest_room
+                    room_boolean: input_boolean.single_guest_room_dynamic_scene
+                    room_scene_tracker: input_text.single_guest_room_dynamic_scene_active
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: picture
+            image: /local/hue/raw/Golden pond.png
+            tap_action:
+              action: call-service
+              service: input_text.set_value
+              data:
+                entity_id: input_text.dynamic_scene_selected
+                value: golden_pond
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:table-chair
+                icon_color: >-
+                  {% if is_state('input_text.dining_table_dynamic_scene_active',
+                  'golden_pond') %}
+                    #d53e4f
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_dt
+                      - light.light_two_dt
+                      - light.light_three_dt
+                      - light.light_one_ktc_dt
+                      - light.light_two_ktc_dt
+                      - light.light_three_ktc_dt
+                    presence_automation:
+                      - automation.room_presence_dining_table
+                      - automation.room_presence_dining_table_kitchen
+                    room_boolean: input_boolean.dining_table_dynamic_scene
+                    room_scene_tracker: input_text.dining_table_dynamic_scene_active
+              - type: template
+                icon: mdi:sofa
+                icon_color: >-
+                  {% if is_state('input_text.sofa_dynamic_scene_active',
+                  'golden_pond') %}
+                    #fc8d59
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sofa
+                      - light.light_two_sofa
+                      - light.light_three_sofa
+                      - light.light_four_sofa
+                    presence_automation: automation.room_presence_sofa
+                    room_boolean: input_boolean.sofa_dynamic_scene
+                    room_scene_tracker: input_text.sofa_dynamic_scene_active
+              - type: template
+                icon: mdi:bed-king
+                icon_color: >-
+                  {% if
+                  is_state('input_text.master_bedroom_dynamic_scene_active',
+                  'golden_pond') %}
+                    #fee08b
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_mbr
+                      - light.light_two_mbr
+                    presence_automation: automation.room_presence_master_bedroom
+                    room_boolean: input_boolean.master_bedroom_dynamic_scene
+                    room_scene_tracker: input_text.master_bedroom_dynamic_scene_active
+              - type: template
+                icon: mdi:baby-carriage
+                icon_color: >-
+                  {% if is_state('input_text.baby_room_dynamic_scene_active',
+                  'golden_pond') %}
+                    #e6f598
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_br
+                      - light.light_two_br
+                    presence_automation: automation.room_presence_baby_room
+                    room_boolean: input_boolean.baby_room_dynamic_scene
+                    room_scene_tracker: input_text.baby_room_dynamic_scene_active
+              - type: template
+                icon: mdi:account-plus
+                icon_color: >-
+                  {% if
+                  is_state('input_text.single_guest_room_dynamic_scene_active',
+                  'golden_pond') %}
+                    #99d594
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sgr
+                      - light.light_two_sgr
+                    presence_automation: automation.room_presence_single_guest_room
+                    room_boolean: input_boolean.single_guest_room_dynamic_scene
+                    room_scene_tracker: input_text.single_guest_room_dynamic_scene_active
+          - type: custom:button-card
+            show_name: false
+            show_icon: false
+            tap_action:
+              action: none
+            styles:
+              card:
+                - background: none
+                - box-shadow: none
+      - type: vertical-stack
+        cards:
+          - type: picture
+            image: /local/hue/raw/Tropical twilight.png
+            tap_action:
+              action: call-service
+              service: input_text.set_value
+              data:
+                entity_id: input_text.dynamic_scene_selected
+                value: tropical_twilight
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: template
+                icon: mdi:table-chair
+                icon_color: >-
+                  {% if is_state('input_text.dining_table_dynamic_scene_active',
+                  'tropical_twilight') %}
+                    #d53e4f
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_dt
+                      - light.light_two_dt
+                      - light.light_three_dt
+                      - light.light_one_ktc_dt
+                      - light.light_two_ktc_dt
+                      - light.light_three_ktc_dt
+                    presence_automation:
+                      - automation.room_presence_dining_table
+                      - automation.room_presence_dining_table_kitchen
+                    room_boolean: input_boolean.dining_table_dynamic_scene
+                    room_scene_tracker: input_text.dining_table_dynamic_scene_active
+              - type: template
+                icon: mdi:sofa
+                icon_color: >-
+                  {% if is_state('input_text.sofa_dynamic_scene_active',
+                  'tropical_twilight') %}
+                    #fc8d59
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sofa
+                      - light.light_two_sofa
+                      - light.light_three_sofa
+                      - light.light_four_sofa
+                    presence_automation: automation.room_presence_sofa
+                    room_boolean: input_boolean.sofa_dynamic_scene
+                    room_scene_tracker: input_text.sofa_dynamic_scene_active
+              - type: template
+                icon: mdi:bed-king
+                icon_color: >-
+                  {% if
+                  is_state('input_text.master_bedroom_dynamic_scene_active',
+                  'tropical_twilight') %}
+                    #fee08b
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_mbr
+                      - light.light_two_mbr
+                    presence_automation: automation.room_presence_master_bedroom
+                    room_boolean: input_boolean.master_bedroom_dynamic_scene
+                    room_scene_tracker: input_text.master_bedroom_dynamic_scene_active
+              - type: template
+                icon: mdi:baby-carriage
+                icon_color: >-
+                  {% if is_state('input_text.baby_room_dynamic_scene_active',
+                  'tropical_twilight') %}
+                    #e6f598
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_br
+                      - light.light_two_br
+                    presence_automation: automation.room_presence_baby_room
+                    room_boolean: input_boolean.baby_room_dynamic_scene
+                    room_scene_tracker: input_text.baby_room_dynamic_scene_active
+              - type: template
+                icon: mdi:account-plus
+                icon_color: >-
+                  {% if
+                  is_state('input_text.single_guest_room_dynamic_scene_active',
+                  'tropical_twilight') %}
+                    #99d594
+                  {% else %}
+                    var(--primary-text-color)
+                  {% endif %}
+                tap_action:
+                  action: call-service
+                  service: script.toggle_or_apply_dynamic_scene
+                  data:
+                    room_lights:
+                      - light.light_one_sgr
+                      - light.light_two_sgr
+                    presence_automation: automation.room_presence_single_guest_room
+                    room_boolean: input_boolean.single_guest_room_dynamic_scene
+                    room_scene_tracker: input_text.single_guest_room_dynamic_scene_active
+card_mod:
+  style: |
+    :host {
+      --simple-swipe-card-pagination-dot-active-color: var(--primary-text-color);
+      --simple-swipe-card-pagination-dot-size: 7px;
+      --simple-swipe-card-transition-speed: 0.5s;
+    }  

@@ -1,0 +1,52 @@
+type: custom:expander-card
+child-margin-top: 0.6em
+padding: 0
+clear: true
+title-card-button-overlay: true
+title-card-clickable: true
+expanded: true
+card_mod:
+  style: |
+    button.open {
+      background: {{ states('sensor.theme_on_primary_color') }} !important;
+    }
+    button.close {
+      background: {{ states('sensor.theme_on_primary_color') }} !important;
+    }
+title-card:
+  type: custom:mushroom-title-card
+  title: Driveway
+  card_mod:
+    style: |
+      ha-card {
+        --title-font-size: 20px !important;
+         transform: translateY(-16px);
+      }
+cards:
+  - type: vertical-stack
+    cards:
+      - type: custom:webrtc-camera
+        entity: camera.left_driveway_camera_fluent
+        mode: webrtc
+      - type: vertical-stack
+        cards:
+          - type: custom:webrtc-camera
+            entity: camera.right_driveway_camera_fluent
+            mode: webrtc
+          - type: custom:mushroom-chips-card
+            alignment: start
+            chips:
+              - type: template
+                entity: switch.light_switch_drw
+                icon: mdi:light-recessed
+                tap_action:
+                  action: toggle
+                content: Driveway Light
+                card_mod:
+                  style:
+                    .: |
+                      ha-card {
+                        --text-color: {{ iif(is_state(config.entity, 'on'), states('sensor.theme_on_secondary_color'), 'none') }};
+                        --color: {{ iif(is_state(config.entity, 'on'), states('sensor.theme_on_secondary_color'), 'none') }};
+                        --chip-background: {{ iif(is_state(config.entity, 'on'), states('sensor.theme_secondary_color'), 'none') }};
+                      }

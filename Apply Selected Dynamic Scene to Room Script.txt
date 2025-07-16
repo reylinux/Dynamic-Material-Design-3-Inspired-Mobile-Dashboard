@@ -1,0 +1,86 @@
+alias: Apply Selected Dynamic Scene to Room
+mode: parallel
+fields:
+  room_lights:
+    description: Lights to apply the scene to
+    example: light.light_one_sofa, light.light_two_sofa
+  presence_automation:
+    description: Room presence automation to disable
+    example: automation.room_presence_sofa
+  room_boolean:
+    description: The input_boolean used for UI state/glow
+    example: input_boolean.sofa_dynamic_scene
+  room_scene_tracker:
+    description: Input text to track what scene is running in the room
+    example: input_text.sofa_dynamic_scene_active
+sequence:
+  - alias: Set active scene tracker for the room
+    data:
+      entity_id: "{{ room_scene_tracker }}"
+      value: "{{ states('input_text.dynamic_scene_selected') }}"
+    action: input_text.set_value
+  - alias: Turn on visual boolean (for chip styling)
+    data:
+      entity_id: "{{ room_boolean }}"
+    action: homeassistant.turn_on
+  - alias: Toggle presence automation for the room
+    data:
+      entity_id: "{{ presence_automation }}"
+    action: homeassistant.toggle
+  - alias: Load currently selected scene from input_text
+    variables:
+      selected_scene: "{{ states('input_text.dynamic_scene_selected') | lower }}"
+  - alias: Start the dynamic scene
+    data:
+      preset_id: >
+        {% set scene = selected_scene %} {% if scene == 'still_waters'
+        %}           0629d5c4-ecbb-4ffd-afc3-6e6239e5e25d {% elif scene ==
+        'hazy_days' %}            2d7f9e7a-5c94-4768-bd5a-6924d670dde0 {% elif
+        scene == 'color_burst' %}          e24e9183-747e-4d4e-a950-a746c6291c90
+        {% elif scene == 'zandvoort' %}           
+        f85558ad-f8db-461a-8ff3-7458e9f7320f {% elif scene == 'rosy_sparkle'
+        %}         cf50bd49-16b1-47fd-a020-b83072595f37 {% elif scene ==
+        'blue_lagoon' %}          58d2dda6-8689-46c7-931b-d3abd039f04b {% elif
+        scene == 'adrift' %}               67f8677a-ba4e-45d4-9a7e-601a7bdbd04d
+        {% elif scene == 'majestic_morning' %}    
+        a07439ee-8a0b-4d86-9378-687acf1c1954 {% elif scene == 'dreamy_dusk'
+        %}          a127f9ef-0371-48dc-bc79-852e2e5b2cc3 {% elif scene ==
+        'miami' %}                a592fa63-4ba6-4399-a120-1c0b79ac832d {% elif
+        scene == 'palm_beach' %}           e780c175-09a9-4080-978a-1d5909d8588f
+        {% elif scene == 'bahrain' %}             
+        ad69cf77-3068-489b-96e8-1aa6e20759a7 {% elif scene == 'silent_night'
+        %}         4760abd5-e5a6-425a-be32-8f37f6e2acfd {% elif scene ==
+        'silverstone' %}          c2ba8a69-acdf-4ce1-8bb2-f1b3819f1c0f {% elif
+        scene == 'amethyst_valley' %}      297700b8-fcc6-4f35-88bb-900935d9da49
+        {% elif scene == 'cancun' %}              
+        c321d848-51a8-4d09-9ad0-5e6b44bc7f2c {% elif scene == 'under_the_tree'
+        %}       85b8bc42-c564-4661-b058-f4e5792a6a6c {% elif scene ==
+        'festive_fun' %}          667e4f15-4abf-4c56-8ef4-74fe1df422b8 {% elif
+        scene == 'ruby_glow' %}            454176dd-7d24-43de-86c4-ee73f8febbec
+        {% elif scene == 'pensive' %}             
+        ad1b1e0d-191d-4144-aaa5-b85b2fc5dc10 {% elif scene == 'savannah_sunset'
+        %}      ea580cb0-149e-48e6-a729-2a500edfb924 {% elif scene ==
+        'tropical_twilight' %}    ffbf7ff8-dc4a-4c56-b157-7a59113be7b7 {% elif
+        scene == 'sao_paulo' %}            a84a9a0c-282d-4b55-8b9c-be9d85455623
+        {% elif scene == 'midwinter' %}           
+        fd55a078-d6a3-4715-9176-5a4fcbf5b3e6 {% elif scene == 'snow_sparkle'
+        %}         6a794ffd-3564-493d-a9ad-a1abcec8b81c {% elif scene == 'tokyo'
+        %}                de7eda64-84bf-4ed6-a4fa-76e0ebdd1968 {% elif scene ==
+        'fairfax' %}              abfc5768-5c2c-4d61-bd03-2b64660e813f {% elif
+        scene == 'rolling_hills' %}        49c61bae-d3ec-4df2-89a4-65235705f3a1
+        {% elif scene == 'spring_lake' %}         
+        f2661458-aad1-4467-97cf-8ccd46abec4e {% elif scene == 'golden_pond'
+        %}          89c16361-391d-4346-b6d8-ac1eaf4de3dc {% elif scene ==
+        'chinatown' %}            7581da02-1688-4128-9bb9-b635f3b89999 {% elif
+        scene == 'ibiza' %}                eaa0d424-ac66-4247-8342-06d2b128ac31
+        {% elif scene == 'osaka' %}               
+        5768805d-27c1-442e-b069-d20443485201 {% elif scene == 'motown'
+        %}               7dded6f8-a2aa-4726-b391-21e9a0f76eee {% else %}
+        default-preset-id {% endif %}
+      transition: 5
+      interval: 6
+      brightness: 255
+      targets:
+        entity_id: "{{ room_lights }}"
+    action: scene_presets.start_dynamic_scene
+description: ""

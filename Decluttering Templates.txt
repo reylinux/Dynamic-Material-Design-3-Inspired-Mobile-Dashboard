@@ -1,0 +1,595 @@
+decluttering_templates:
+  room_summary_card:
+    description: Primary room info (name + temp/humidity)
+    variables:
+      - room_name
+      - temperature_sensor
+      - humidity_sensor
+      - navigation_path
+    card:
+      type: custom:mushroom-template-card
+      primary: '[[room_name]]'
+      secondary: >-
+        {{ states('[[temperature_sensor]]') | round(1) }}°C / {{
+        states('[[humidity_sensor]]') | round(1) }}%
+      tap_action:
+        action: navigate
+        navigation_path: '[[navigation_path]]'
+      hold_action:
+        action: none
+      double_tap_action:
+        action: none
+      card_mod:
+        style:
+          .: |
+            ha-card {
+              --primary-text-color: black;
+              border: 0px;
+              padding-left: 5px;
+              padding-top: 5px;
+              width: 500px;
+            }
+          mushroom-state-info$: |
+            .container {
+              --card-primary-color: var(--primary-text-color);
+              --card-secondary-color: var(--primary-text-color);
+            }
+  big_icon_toggle_card:
+    description: Large horizontal icon toggle for switch/light
+    variables:
+      - entity
+      - icon
+    card:
+      type: custom:mushroom-template-card
+      entity: '[[entity]]'
+      layout: horizontal
+      icon: '[[icon]]'
+      icon_color: |-
+        {% if is_state(entity, 'on') %} 
+          #ecce85
+        {% else %}
+          #5b5b5b
+        {% endif %}
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+      double_tap_action:
+        action: none
+      primary_info: none
+      secondary_info: none
+      card_mod:
+        style:
+          mushroom-shape-icon$: |
+            .shape {
+              --icon-size: 135px;
+            }
+          .: |
+            ha-card {
+              border: 0px;
+              margin-left: -30px;
+              margin-top: -15px;
+            }
+  mobile_navbar:
+    card:
+      type: custom:navbar-card
+      mobile:
+        show_labels: true
+      desktop:
+        show_labels: true
+        position: left
+        min_width: 768
+      routes:
+        - url: /mobile-dashboard/overview
+          label: Home
+          icon: mdi:home-outline
+          icon_selected: mdi:home
+        - url: /mobile-dashboard/rooms
+          label: Rooms
+          icon: mdi:sofa-outline
+          icon_selected: mdi:sofa
+          tap_action:
+            action: navigate
+            navigation_path: /mobile-dashboard/rooms
+          hold_action:
+            action: open-popup
+          popup:
+            - icon: mdi:garage-variant
+              url: /mobile-dashboard/garage
+            - icon: mdi:sofa
+              url: /mobile-dashboard/living-area
+            - icon: mdi:bed-king
+              url: /mobile-dashboard/master-bedroom
+            - icon: mdi:baby-carriage
+              url: /mobile-dashboard/baby
+            - icon: mdi:account-plus
+              url: /mobile-dashboard/single-guest
+            - icon: mdi:account-group
+              url: /mobile-dashboard/multiple-guest
+            - icon: mdi:washing-machine
+              url: /mobile-dashboard/laundry
+            - icon: mdi:desktop-tower-monitor
+              url: /mobile-dashboard/office
+        - url: /mobile-dashboard/scenes
+          label: Scenes
+          icon: mdi:layers-outline
+          icon_selected: mdi:layers
+        - url: /mobile-dashboard/camera
+          label: Camera
+          icon: mdi:camera-outline
+          icon_selected: mdi:camera
+        - icon: mdi:dots-horizontal
+          label: More
+          tap_action:
+            action: open-popup
+          popup:
+            - icon: mdi:cog
+              url: /config/dashboard
+            - icon: mdi:battery
+              url: /mobile-dashboard/battery
+            - icon: mdi:theme-light-dark
+              url: '#theme'
+            - icon: mdi:hammer
+              url: /developer-tools/yaml
+            - icon: mdi:server
+              url: /mobile-dashboard/server
+            - icon: mdi:power
+              tap_action:
+                action: call-service
+                service: homeassistant.restart
+                service_data: {}
+                confirmation:
+                  text: Are you sure you want to restart Home Assistant?
+      styles: |
+        .navbar {
+          background: var(--nav-background);
+          backdrop-filter: blur(50px);
+          -webkit-backdrop-filter: blur(20px) !important;
+          background-blend-mode: overlay;
+          border-radius: 20px;
+          box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+          margin-bottom: 15px;
+          overflow: hidden;
+        }
+      card_mod:
+        style: |
+          ha-card {
+            --navbar-primary-color: {{ states('sensor.theme_on_primary_color') }};
+            --state-inactive-color: {{ states('sensor.theme_primary_color') }};
+          }
+  room_navigation_buttons:
+    card:
+      type: custom:paper-buttons-row
+      styles:
+        background-color: rgba(215, 215, 215, 0.3)
+        border: 4px solid none
+        border-radius: 20px
+        justify-content: center
+        width: max-content
+        margin: 0 auto 12px auto
+      buttons:
+        - layout: name
+          name: Room
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: show
+                - stats: hide
+                - active: hide
+          styles:
+            name:
+              color: '{{ states(''sensor.theme_tertiary_color'') }}'
+              padding: 0 22px
+              font-weight: bold
+            button:
+              background: '{{ states(''sensor.theme_on_tertiary_color'') }}'
+              border-radius: 24px
+              height: 24px
+              display: flex
+        - layout: name
+          name: Stats
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: hide
+                - stats: show
+                - active: hide
+          styles:
+            name:
+              color: var(--primary-text-color)
+              padding: 0 22px
+            button:
+              background: none
+              border-radius: 24px
+              height: 24px
+              display: flex
+        - layout: name
+          name: Active
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: hide
+                - stats: hide
+                - active: show
+          styles:
+            name:
+              color: var(--primary-text-color)
+              padding: 0 22px
+            button:
+              background: none
+              border-radius: 24px
+              height: 24px
+              display: flex
+  stats_navigation_buttons:
+    card:
+      type: custom:paper-buttons-row
+      styles:
+        background-color: rgba(215, 215, 215, 0.3)
+        border: 4px solid none
+        border-radius: 20px
+        justify-content: center
+        width: max-content
+        margin: 0 auto 12px auto
+      buttons:
+        - layout: name
+          name: Room
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: show
+                - stats: hide
+                - active: hide
+          styles:
+            name:
+              color: var(--primary-text-color)
+              padding: 0 22px
+            button:
+              background: none
+              border-radius: 24px
+              height: 24px
+              display: flex
+        - layout: name
+          name: Stats
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: hide
+                - stats: show
+                - active: hide
+          styles:
+            name:
+              color: '{{ states(''sensor.theme_tertiary_color'') }}'
+              padding: 0 22px
+              font-weight: bold
+            button:
+              background: '{{ states(''sensor.theme_on_tertiary_color'') }}'
+              border-radius: 24px
+              height: 24px
+              display: flex
+        - layout: name
+          name: Active
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: hide
+                - stats: hide
+                - active: show
+          styles:
+            name:
+              color: var(--primary-text-color)
+              padding: 0 22px
+            button:
+              background: none
+              border-radius: 24px
+              height: 24px
+              display: flex
+  active_navigation_buttons:
+    card:
+      type: custom:paper-buttons-row
+      styles:
+        background-color: rgba(215, 215, 215, 0.3)
+        border: 4px solid none
+        border-radius: 20px
+        justify-content: center
+        width: max-content
+        margin: 0 auto 12px auto
+      buttons:
+        - layout: name
+          name: Room
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: show
+                - stats: hide
+                - active: hide
+          styles:
+            name:
+              color: var(--primary-text-color)
+              padding: 0 22px
+            button:
+              background: none
+              border-radius: 24px
+              height: 24px
+              display: flex
+        - layout: name
+          name: Stats
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: hide
+                - stats: show
+                - active: hide
+          styles:
+            name:
+              color: var(--primary-text-color)
+              padding: 0 22px
+            button:
+              background: none
+              border-radius: 24px
+              height: 24px
+              display: flex
+        - layout: name
+          name: Active
+          ripple: none
+          tap_action:
+            action: fire-dom-event
+            local_conditional_card:
+              action: set
+              ids:
+                - room: hide
+                - stats: hide
+                - active: show
+          styles:
+            name:
+              color: '{{ states(''sensor.theme_tertiary_color'') }}'
+              padding: 0 22px
+              font-weight: bold
+            button:
+              background: '{{ states(''sensor.theme_on_tertiary_color'') }}'
+              border-radius: 24px
+              height: 24px
+              display: flex
+  open_window_title_card:
+    description: Title showing "Open Window(s)" if any are open
+    variables:
+      - windows_entity
+    card:
+      type: custom:mushroom-title-card
+      title: >-
+        {% set open_windows = expand(states['[[windows_entity]]'])
+            | selectattr('state', 'eq', 'on')
+            | list | count %}
+        {{ '' if open_windows == 0 else ('Open Window' if open_windows == 1 else
+        'Open Windows') }}
+      card_mod:
+        style: |
+          ha-card {
+            --title-font-size: 20px !important;
+          }
+  open_window_chip_card:
+    description: Horizontal chip list showing open windows
+    variables:
+      - windows_entity
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:mushroom-chips-card
+          chips:
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: '[[windows_entity]]'
+                  state: 'on'
+              chip:
+                type: template
+                content: |
+                  {{ expand(states['[[windows_entity]]']) 
+                      | selectattr('state', 'eq', 'on') 
+                      | map(attribute='name') 
+                      | join(', ') }}
+                icon: mdi:window-open
+                icon_color: orange
+  open_door_window_title_card:
+    description: Shows dynamic title for open doors/windows (with plural logic)
+    variables:
+      - window_entity
+      - door_entity
+    card:
+      type: custom:mushroom-title-card
+      title: |-
+        {% set windows_open = expand(states['[[window_entity]]'])
+            | selectattr('state', 'eq', 'on') | list | count %}
+        {% set doors_open = expand(states['[[door_entity]]'])
+            | selectattr('state', 'eq', 'on') | list | count %}
+
+        {% if windows_open > 0 and doors_open > 0 %}
+          {{ 'Open Windows and Doors' if windows_open > 1 and doors_open > 1 else 
+             'Open Window and Doors' if windows_open == 1 and doors_open > 1 else 
+             'Open Windows and Door' if windows_open > 1 and doors_open == 1 else 
+             'Open Window and Door' }}
+        {% elif windows_open > 0 %}
+          {{ 'Open Windows' if windows_open > 1 else 'Open Window' }}
+        {% elif doors_open > 0 %}
+          {{ 'Open Doors' if doors_open > 1 else 'Open Door' }}
+        {% else %}
+          ''
+        {% endif %}
+      card_mod:
+        style: |
+          ha-card {
+            --title-font-size: 20px !important;
+          }
+  open_door_window_chip_card:
+    description: Chips showing open doors and windows (if any)
+    variables:
+      - window_entity
+      - door_entity
+    card:
+      type: custom:mushroom-chips-card
+      chips:
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: '[[door_entity]]'
+              state: 'on'
+          chip:
+            type: template
+            content: |
+              {{ expand(states['[[door_entity]]'])
+                  | selectattr('state', 'eq', 'on') 
+                  | map(attribute='name') 
+                  | join(', ') }}
+            icon: |-
+              {% set open_doors = expand(states['[[door_entity]]']) 
+                  | selectattr('state', 'eq', 'on') 
+                  | list | count %}
+              {{ 'mdi:door-sliding-open' if open_doors > 0 else '' }}
+            icon_color: red
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: '[[window_entity]]'
+              state: 'on'
+          chip:
+            type: template
+            content: |
+              {{ expand(states['[[window_entity]]']) 
+                  | selectattr('state', 'eq', 'on') 
+                  | map(attribute='name') 
+                  | join(', ') }}
+            icon: mdi:window-open
+            icon_color: orange
+  humidity_comparison_stack:
+    description: Indoor vs Outdoor humidity with chart
+    variables:
+      - indoor_entity
+      - outdoor_entity
+      - location: Indoor
+      - location_outdoor: Outdoor
+    card:
+      type: custom:stack-in-card
+      cards:
+        - type: grid
+          square: false
+          columns: 2
+          cards:
+            - type: custom:mushroom-template-card
+              entity: '[[indoor_entity]]'
+              primary: |
+                {{ states(entity) | round(1) }} %
+              secondary: '[[location]] Humidity'
+              icon: mdi:water-percent
+              name: Room Humidity
+              icon_color: |
+                {% set humidity = states('[[indoor_entity]]') | float %}
+                {% if humidity < 31 %} #99332d
+                {% elif humidity < 51 %} #228B22
+                {% else %} #99332d
+                {% endif %}
+              card_mod:
+                style: |
+                  ha-card {
+                    border: none;
+                  }
+            - type: custom:mushroom-template-card
+              entity: '[[outdoor_entity]]'
+              primary: |
+                {{ states(entity) | round(1) }} %
+              secondary: '[[location_outdoor]] Humidity'
+              icon: mdi:water-percent
+              name: Humidity
+              icon_color: grey
+              card_mod:
+                style: |
+                  ha-card {
+                    border: none;
+                  }
+        - type: custom:mini-graph-card
+          entities:
+            - entity: '[[outdoor_entity]]'
+              color: grey
+            - entity: '[[indoor_entity]]'
+              show_fill: true
+              state_adaptive_color: true
+          color_thresholds:
+            - value: 0
+              color: '#99332d'
+            - value: 31
+              color: '#228B22'
+            - value: 51
+              color: '#99332d'
+          hours_to_show: 24
+          line_width: 3
+          font_size: 50
+          animate: true
+          show:
+            name: false
+            icon: false
+            state: false
+            legend: false
+            fill: fade
+          card_mod:
+            style: |
+              ha-card {
+                border: none;
+              }
+      card_mod:
+        style: |
+          ha-card {
+            --stack-card-gap: 0;
+          }
+  temperature_waterfall_card:
+    description: Waterfall temperature history for a sensor
+    variables:
+      - entity
+      - title
+    card:
+      type: custom:waterfall-history-card
+      entity: '[[entity]]'
+      title: '[[title]]'
+      hours: 24
+      intervals: 48
+      columns: 12
+      compact: true
+      gradient: true
+      height: 60
+      show_current: true
+      show_labels: true
+      show_min_max: true
+      thresholds:
+        - value: 16
+          color: '#CEB2F5'
+        - value: 18
+          color: '#5EBDEE'
+        - value: 21
+          color: '#9cc8b8'
+        - value: 24
+          color: '#e7b562'
+        - value: 27
+          color: '#FF564B'
+        - value: 35
+          color: '#99332d'

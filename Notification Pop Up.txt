@@ -1,0 +1,278 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#notifications"
+    margin_top_mobile: calc(100vh - 435px)
+    name: Notifications
+    icon: mdi:bell
+    styles: |
+      * {
+        font-size: 16px !important;
+      }
+      .bubble-button-card-container {
+        background: transparent !important;
+      }      
+      .bubble-icon-container {
+        background: transparent !important;
+      }
+      .bubble-close-button {
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+    bg_color: var(--card-background-color)
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: conditional
+        conditions:
+          - condition: numeric_state
+            entity: sensor.soil_sensor_corner_moisture
+            below: 40
+        chip:
+          type: template
+          entity: sensor.soil_sensor_corner_moisture
+          icon: mdi:water-percent
+          content: "{{ states('sensor.soil_sensor_corner_moisture') }}%"
+          icon_color: >
+            {% set moisture = states('sensor.soil_sensor_corner_moisture') |
+            int(0) %} {% if moisture >= 40 %}
+              green
+            {% elif moisture >= 25 %}
+              yellow
+            {% else %}
+              red
+            {% endif %}
+          tap_action:
+            action: more-info
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: sensor.house_maintenance_chip_card
+            state: "true"
+        chip:
+          type: template
+          entity: sensor.house_maintenance_chip_card
+          icon: |
+            {% if is_state('input_boolean.rubbish', 'on') %}
+              mdi:trash-can
+            {% elif is_state('input_boolean.recycle', 'on') %}
+              mdi:recycle
+            {% else %} {% endif %}
+          icon_color: |
+            {% if is_state('input_boolean.rubbish', 'on') %}
+              #C41E3A
+            {% elif is_state('input_boolean.recycle', 'on') %}
+              #50C878
+            {% else %} {% endif %}
+          content: |
+            {% if is_state('input_boolean.rubbish', 'on') %}
+              Rubbish Day
+            {% elif is_state('input_boolean.recycle', 'on') %}
+              Recycle Day
+            {% else %} {% endif %}      
+          tap_action:
+            action: more-info
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: binary_sensor.door_sensor_grg_contact
+            state: "on"
+        chip:
+          type: template
+          entity: binary_sensor.door_sensor_grg_contact
+          icon: mdi:garage-variant
+          icon_color: red
+          content: >-
+            {{ 'Garage Opened' if
+            states('binary_sensor.door_sensor_grg_contact') == 'on' else '' }}
+          tap_action:
+            action: navigate
+            navigation_path: /mobile-dashboard/camera
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: binary_sensor.all_doors
+            state: "on"
+        chip:
+          type: template
+          entity: binary_sensor.all_doors
+          content: |
+            {{ expand(states.binary_sensor.all_doors) 
+                | selectattr('state', 'eq', 'on') 
+                | map(attribute='name') 
+                | join(', ') }}
+          icon: |-
+            {% set open_doors = expand(states.binary_sensor.all_doors) 
+                | selectattr('state', 'eq', 'on') 
+                | list | count %}
+            {{ 'mdi:door-open' if open_doors > 0 else '' }}
+          icon_color: red
+          tap_action:
+            action: more-info
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: sensor.laundry_machine_state
+            state: Delay Run
+        chip:
+          type: entity
+          entity: sensor.laundry_delay_time_remaining
+          icon_color: blue
+          tap_action:
+            action: more-info
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: sensor.laundry_machine_state
+            state: Run
+        chip:
+          type: entity
+          entity: sensor.laundry_time_remaining
+          icon: mdi:washing-machine
+          icon_color: blue
+          tap_action:
+            action: more-info
+      - type: conditional
+        conditions:
+          - condition: numeric_state
+            entity: sensor.washing_machine_power
+            above: 10
+        chip:
+          type: template
+          entity: sensor.washing_machine_power
+          tap_action:
+            action: more-info
+          icon: mdi:washing-machine
+          icon_color: blue
+          content: Washing Machine Running
+      - type: conditional
+        conditions:
+          - condition: numeric_state
+            entity: sensor.dryer_power
+            above: 10
+        chip:
+          type: template
+          entity: sensor.dryer_switch_lr_power
+          tap_action:
+            action: more-info
+          icon: mdi:tumble-dryer
+          icon_color: "#880808"
+          content: Dryer Running
+      - type: conditional
+        conditions:
+          - condition: or
+            conditions:
+              - condition: state
+                entity: media_player.all_speakers
+                state: playing
+              - condition: state
+                entity: media_player.all_speakers
+                state: "on"
+        chip:
+          type: template
+          entity: media_player.all_speakers
+          content: |
+            {{ expand(states.media_player.all_speakers)
+                | selectattr('state', 'eq', 'playing')
+                | list | count }}
+          icon: mdi:music
+          icon_color: var(--primary-text-color)
+          tap_action:
+            action: more-info
+  - type: conditional
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: input_boolean.rubbish
+            state: "on"
+          - condition: state
+            entity: input_boolean.recycle
+            state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:webrtc-camera
+          entity: camera.right_driveway_camera_fluent
+          mode: webrtc
+        - type: custom:mushroom-chips-card
+          alignment: start
+          chips:
+            - type: template
+              entity: switch.light_switch_drw
+              icon: mdi:light-recessed
+              icon_color: |-
+                {% if is_state(entity, 'on') %} 
+                  #C2A878
+                {% else %}
+                 var(--primary-text-color)
+                {% endif %}
+              tap_action:
+                action: toggle
+              content: Driveway Light
+  - type: grid
+    columns: 2
+    square: false
+    cards:
+      - type: conditional
+        conditions:
+          - condition: or
+            conditions:
+              - entity: timer.wash_cuddly
+                state: idle
+              - entity: binary_sensor.timer_wash_cuddly_12h
+                state: "on"
+        card:
+          type: custom:timer-bar-card
+          entity: timer.wash_cuddly
+          invert: true
+          bar_direction: rtl
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#f385bc"
+      - type: conditional
+        conditions:
+          - condition: or
+            conditions:
+              - entity: timer.wash_duvet
+                state: idle
+              - entity: binary_sensor.timer_wash_duvet_12h
+                state: "on"
+        card:
+          type: custom:timer-bar-card
+          entity: timer.wash_duvet
+          invert: true
+          bar_direction: rtl
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#f3c843"
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.heated_towel_rails
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.heated_towel_rails
+          invert: true
+          bar_direction: rtl
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: orange
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.exhaust_fans
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.exhaust_fans
+          invert: true
+          bar_direction: rtl
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#b5e0f7"

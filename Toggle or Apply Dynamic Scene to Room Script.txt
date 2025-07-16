@@ -1,0 +1,36 @@
+alias: Toggle or Apply Dynamic Scene to Room
+mode: parallel
+fields:
+  room_boolean:
+    description: Input boolean that tracks room participation
+    example: input_boolean.dining_table_dynamic_scene
+  room_scene_tracker:
+    description: Input text that stores which scene is active
+    example: input_text.dining_table_dynamic_scene_active
+  room_lights:
+    description: Lights in the room
+  presence_automation:
+    description: One or more automations to toggle
+sequence:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ is_state(room_boolean, 'on') }}"
+        sequence:
+          - data:
+              entity_id: "{{ room_boolean }}"
+            action: homeassistant.turn_off
+          - data:
+              entity_id: "{{ room_scene_tracker }}"
+              value: ""
+            action: input_text.set_value
+          - data:
+              entity_id: "{{ presence_automation }}"
+            action: homeassistant.turn_on
+    default:
+      - data:
+          room_lights: "{{ room_lights }}"
+          presence_automation: "{{ presence_automation }}"
+          room_boolean: "{{ room_boolean }}"
+          room_scene_tracker: "{{ room_scene_tracker }}"
+        action: script.apply_selected_dynamic_scene_to_room

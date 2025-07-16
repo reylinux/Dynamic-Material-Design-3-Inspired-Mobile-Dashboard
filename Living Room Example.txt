@@ -1,0 +1,441 @@
+type: horizontal-stack
+cards:
+  - type: custom:local-conditional-card
+    id: room
+    default: show
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:decluttering-card
+          template: room_navigation_buttons
+        - type: custom:mushroom-title-card
+          title: Lights
+          card_mod:
+            style: |
+              ha-card {
+                --title-font-size: 20px !important;
+              }
+        - type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: conditional
+                  conditions:
+                    - condition: state
+                      entity: light.lights_dt_only
+                      state: "off"
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:button-card
+                        entity: light.lights_dt_only
+                        name: Dining Table
+                        template: light_off_button
+                      - type: custom:my-slider-v2
+                        entity: light.lights_dt_only
+                        allowTapping: false
+                        allowSliding: true
+                        styles:
+                          container:
+                            - border-radius: 30px
+                          card:
+                            - margin-top: "-8px"
+                            - height: 75px
+                          progress:
+                            - background: none
+                          thumb:
+                            - width: 3px
+                            - height: 30%
+                            - background: var(--card-background-color)
+                            - border-radius: 5px
+                            - top: 35%
+                            - margin-right: 12x
+                          track:
+                            - background: none
+                - type: conditional
+                  conditions:
+                    - condition: state
+                      entity: light.lights_dt_only
+                      state: "on"
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:button-card
+                        entity: light.lights_dt_only
+                        name: Dining Table
+                        template: light_on_button
+                      - type: custom:my-slider-v2
+                        entity: light.lights_dt_only
+                        allowTapping: false
+                        allowSliding: true
+                        styles:
+                          container:
+                            - border-radius: 30px
+                          card:
+                            - margin-top: "-8px"
+                            - height: 75px
+                          progress:
+                            - background: var(--gradient-progress)
+                          thumb:
+                            - width: 3px
+                            - height: 30%
+                            - background: var(--theme-primary-color)
+                            - border-radius: 5px
+                            - top: 35%
+                          track:
+                            - background: var(--gradient-track)
+                        card_mod:
+                          style: |
+                            :host {
+                              --theme-primary-color: {{ states('sensor.theme_on_secondary_color') }};
+                              --gradient-track: {{ states('sensor.theme_on_gradient_track') }};
+                              --gradient-progress: {{ states('sensor.theme_on_gradient_progress') }};
+                            }
+                - type: conditional
+                  conditions:
+                    - condition: state
+                      entity: light.lights_ktc
+                      state: "off"
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:button-card
+                        entity: light.lights_ktc
+                        name: Kitchen
+                        template: light_off_button
+                      - type: custom:my-slider-v2
+                        entity: light.lights_ktc
+                        allowTapping: false
+                        allowSliding: true
+                        styles:
+                          container:
+                            - border-radius: 30px
+                          card:
+                            - margin-top: "-8px"
+                            - height: 75px
+                          progress:
+                            - background: none
+                          thumb:
+                            - width: 3px
+                            - height: 30%
+                            - background: var(--card-background-color)
+                            - border-radius: 5px
+                            - top: 35%
+                            - margin-right: 12x
+                          track:
+                            - background: none
+                - type: conditional
+                  conditions:
+                    - condition: state
+                      entity: light.lights_ktc
+                      state: "on"
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:button-card
+                        entity: light.lights_ktc
+                        name: Kitchen
+                        template: light_on_button
+                      - type: custom:my-slider-v2
+                        entity: light.lights_ktc
+                        allowTapping: false
+                        allowSliding: true
+                        styles:
+                          container:
+                            - border-radius: 30px
+                          card:
+                            - margin-top: "-8px"
+                            - height: 75px
+                          progress:
+                            - background: var(--gradient-progress)
+                          thumb:
+                            - width: 3px
+                            - height: 30%
+                            - background: var(--theme-primary-color)
+                            - border-radius: 5px
+                            - top: 35%
+                          track:
+                            - background: var(--gradient-track)
+                        card_mod:
+                          style: |
+                            :host {
+                              --theme-primary-color: {{ states('sensor.theme_on_secondary_color') }};
+                              --gradient-track: {{ states('sensor.theme_on_gradient_track') }};
+                              --gradient-progress: {{ states('sensor.theme_on_gradient_progress') }};
+                            }
+            - type: horizontal-stack
+              cards:
+                - type: custom:button-card
+                  entity: switch.table_top_light
+                  name: Table Top
+                  template: standard_light_button
+                - type: custom:button-card
+                  entity: switch.kitchen_cabinet_led
+                  name: Kitchen LED
+                  template: standard_light_button
+            - type: horizontal-stack
+              cards:
+                - type: conditional
+                  conditions:
+                    - condition: state
+                      entity: light.lights_sofa
+                      state: "off"
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:button-card
+                        entity: light.lights_sofa
+                        name: Sofa
+                        template: light_off_button
+                      - type: custom:my-slider-v2
+                        entity: light.lights_sofa
+                        allowTapping: false
+                        allowSliding: true
+                        styles:
+                          container:
+                            - border-radius: 30px
+                          card:
+                            - margin-top: "-8px"
+                            - height: 75px
+                          progress:
+                            - background: none
+                          thumb:
+                            - width: 3px
+                            - height: 30%
+                            - background: var(--card-background-color)
+                            - border-radius: 5px
+                            - top: 35%
+                            - margin-right: 12x
+                          track:
+                            - background: none
+                - type: conditional
+                  conditions:
+                    - condition: state
+                      entity: light.lights_sofa
+                      state: "on"
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:button-card
+                        entity: light.lights_sofa
+                        name: Sofa
+                        template: light_on_button
+                      - type: custom:my-slider-v2
+                        entity: light.lights_sofa
+                        allowTapping: false
+                        allowSliding: true
+                        styles:
+                          container:
+                            - border-radius: 30px
+                          card:
+                            - margin-top: "-8px"
+                            - height: 75px
+                          progress:
+                            - background: var(--gradient-progress)
+                          thumb:
+                            - width: 3px
+                            - height: 30%
+                            - background: var(--theme-primary-color)
+                            - border-radius: 5px
+                            - top: 35%
+                          track:
+                            - background: var(--gradient-track)
+                        card_mod:
+                          style: |
+                            :host {
+                              --theme-primary-color: {{ states('sensor.theme_on_secondary_color') }};
+                              --gradient-track: {{ states('sensor.theme_on_gradient_track') }};
+                              --gradient-progress: {{ states('sensor.theme_on_gradient_progress') }};
+                            }
+                - type: custom:button-card
+                  entity: switch.table_top_led
+                  name: Table Top LED
+                  template: standard_light_button
+            - type: custom:expander-card
+              title-card-clickable: true
+              title-card-button-overlay: true
+              expanded: false
+              padding: 1em
+              child-margin-top: 0.6em
+              title-card:
+                type: custom:mushroom-template-card
+                icon: mdi:lightbulb-on-10
+                icon_color: none
+                primary: Other Lights
+                secondary: Tap here to expand
+                layout: horizontal
+                tap_action:
+                  action: none
+              cards:
+                - type: vertical-stack
+                  cards:
+                    - type: horizontal-stack
+                      cards:
+                        - type: conditional
+                          conditions:
+                            - condition: state
+                              entity: light.light_scr
+                              state: "off"
+                          card:
+                            type: vertical-stack
+                            cards:
+                              - type: custom:button-card
+                                entity: light.light_scr
+                                name: Scullery
+                                template: light_off_button
+                              - type: custom:my-slider-v2
+                                entity: light.light_scr
+                                allowTapping: false
+                                allowSliding: true
+                                styles:
+                                  container:
+                                    - border-radius: 30px
+                                  card:
+                                    - margin-top: "-8px"
+                                    - height: 75px
+                                  progress:
+                                    - background: none
+                                  thumb:
+                                    - width: 3px
+                                    - height: 30%
+                                    - background: var(--card-background-color)
+                                    - border-radius: 5px
+                                    - top: 35%
+                                    - margin-right: 12x
+                                  track:
+                                    - background: none
+                        - type: conditional
+                          conditions:
+                            - condition: state
+                              entity: light.light_scr
+                              state: "on"
+                          card:
+                            type: vertical-stack
+                            cards:
+                              - type: custom:button-card
+                                entity: light.light_scr
+                                name: Scullery
+                                template: light_on_button
+                              - type: custom:my-slider-v2
+                                entity: light.light_scr
+                                allowTapping: false
+                                allowSliding: true
+                                styles:
+                                  container:
+                                    - border-radius: 30px
+                                  card:
+                                    - margin-top: "-8px"
+                                    - height: 75px
+                                  progress:
+                                    - background: var(--gradient-progress)
+                                  thumb:
+                                    - width: 3px
+                                    - height: 30%
+                                    - background: var(--theme-primary-color)
+                                    - border-radius: 5px
+                                    - top: 35%
+                                  track:
+                                    - background: var(--gradient-track)
+                                card_mod:
+                                  style: |
+                                    :host {
+                                      --theme-primary-color: {{ states('sensor.theme_on_secondary_color') }};
+                                      --gradient-track: {{ states('sensor.theme_on_gradient_track') }};
+                                      --gradient-progress: {{ states('sensor.theme_on_gradient_progress') }};
+                                    }
+                    - type: horizontal-stack
+                      cards:
+                        - type: custom:button-card
+                          entity: switch.patio_main_switch_la
+                          icon: mdi:outdoor-lamp
+                          name: Main Patio
+                          template: standard_light_button
+                        - type: custom:button-card
+                          entity: switch.patio_side_switch_la
+                          icon: mdi:outdoor-lamp
+                          name: Side Patio
+                          template: standard_light_button
+  - type: custom:local-conditional-card
+    id: stats
+    default: hide
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:decluttering-card
+          template: stats_navigation_buttons
+        - type: custom:mushroom-title-card
+          title: Temperature / Humidity
+          card_mod:
+            style: |
+              ha-card {
+                --title-font-size: 20px !important;
+              }
+        - type: custom:decluttering-card
+          template: temperature_waterfall_card
+          variables:
+            - entity: sensor.living_room_temperature
+            - title: Temperature History
+        - type: custom:decluttering-card
+          template: humidity_comparison_stack
+          variables:
+            - indoor_entity: sensor.living_area_humidity
+            - outdoor_entity: sensor.outdoor_humidity
+            - location: Indoor
+            - location_outdoor: Outdoor
+    hide_in_preview: true
+  - type: custom:local-conditional-card
+    id: active
+    default: hide
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:decluttering-card
+          template: active_navigation_buttons
+        - type: grid
+          columns: 2
+          square: false
+          cards:
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: switch.rice_cooker_switch_ktc
+                  state: "on"
+              card:
+                type: custom:button-card
+                entity: switch.rice_cooker_switch_ktc
+                name: Rice Cooker Switch
+                tap_action:
+                  action: toggle
+                styles:
+                  grid:
+                    - grid-template-columns: 64px 1fr
+                    - grid-template-areas: "\" i n \""
+                  card:
+                    - background: rgba(244, 243, 250, 0.5)
+                    - height: 75px
+                  img_cell:
+                    - width: 22px
+                  icon:
+                    - width: 22px
+                    - color: var(--primary-text-color)
+                  name:
+                    - justify-self: start
+                    - font-size: 14px
+                    - font-weight: 400
+                    - color: var(--primary-text-color)
+                state:
+                  - value: "on"
+                    styles:
+                      card:
+                        - background: "#FFEA00"
+        - type: custom:decluttering-card
+          template: open_door_window_title_card
+          variables:
+            - window_entity: binary_sensor.windows_la
+            - door_entity: binary_sensor.doors_la
+        - type: custom:decluttering-card
+          template: open_door_window_chip_card
+          variables:
+            - window_entity: binary_sensor.windows_la
+            - door_entity: binary_sensor.doors_la
+    hide_in_preview: true

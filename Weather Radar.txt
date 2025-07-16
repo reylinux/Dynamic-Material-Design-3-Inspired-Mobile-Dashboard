@@ -1,0 +1,11 @@
+type: custom:mod-card
+card:
+  type: iframe
+  url: >-
+    https://embed.windy.com/embed2.html?lat=-36.85&lon=174.76&width=800&height=600
+style: |
+  ha-card {
+    height: 100% !important;
+    width: 100% !important;
+    min-height: 500px;
+  }

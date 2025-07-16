@@ -1,0 +1,97 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#theme"
+    margin_top_mobile: calc(100vh - 800px)
+    name: Colour Palette
+    icon: mdi:theme-light-dark
+    styles: |
+      * {
+        font-size: 16px !important;
+      }
+      .bubble-button-card-container {
+        background: transparent !important;
+      }      
+      .bubble-icon-container {
+        background: transparent !important;
+      }
+      .bubble-close-button {
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+    bg_color: var(--card-background-color)
+    button_type: name
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-select-card
+        entity: input_select.theme_base_color
+        icon_color: disabled
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            name: Primary
+            styles:
+              card:
+                - background: |
+                    [[[ 
+                      const base = states['input_select.theme_base_color'].state.toLowerCase();
+                      const color = {
+                        indigo: "#e9ddff",
+                        teal: "#a1f2dd",
+                        orange: "#ffddb7",
+                        blue: "#d6e3ff",
+                        yellow: "#f8e287",
+                        green: "#cdeda3",
+                        pink: "#ffd9de",
+                        grey: "#9eeffd"
+                      };
+                      return color[base] || "#ccc"; 
+                    ]]]
+                - color: black
+                - height: 40px
+                - font-size: 12px
+          - type: custom:button-card
+            name: Secondary
+            styles:
+              card:
+                - background: |
+                    [[[ 
+                      const base = states['input_select.theme_base_color'].state.toLowerCase();
+                      const color = {
+                        indigo: "#e8def8",
+                        teal: "#cde8df",
+                        orange: "#fcdebc",
+                        blue: "#dae2f9",
+                        yellow: "#eee2bc",
+                        green: "#dce7c8",
+                        pink: "#ffd9de",
+                        grey: "#cde7ec"
+                      };
+                      return color[base] || "#ccc"; 
+                    ]]]
+                - color: black
+                - height: 40px
+                - font-size: 12px
+          - type: custom:button-card
+            name: Tertiary
+            styles:
+              card:
+                - background: |
+                    [[[ 
+                      const base = states['input_select.theme_base_color'].state.toLowerCase();
+                      const color = {
+                        indigo: "#ffd9e3",
+                        teal: "#c7e7ff",
+                        orange: "#d6e9b9",
+                        blue: "#fad8fd",
+                        yellow: "#c5ecce",
+                        green: "#bcece7",
+                        pink: "#ffddba",
+                        grey: "#dae2ff"
+                      };
+                      return color[base] || "#ccc"; 
+                    ]]]
+                - color: black
+                - height: 40px
+                - font-size: 12px

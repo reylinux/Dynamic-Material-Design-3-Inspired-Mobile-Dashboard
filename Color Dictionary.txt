@@ -1,0 +1,80 @@
+blue:
+  primary: "#415f91"
+  secondary: "#565f71"
+  tertiary: "#705575"
+  on_primary: "#d6e3ff"
+  on_secondary: "#dae2f9"
+  on_tertiary: "#fad8fd"
+  gradient_progress: linear-gradient(145deg,rgba(65, 95, 145, 0.75) 0%, rgba(214, 227, 255, 1) 100%)
+  gradient_track: linear-gradient(145deg,rgba(32, 64, 120, 1) 0%, rgba(230, 238, 252, 1) 100%)
+
+green:
+  primary: "#4c662b"
+  secondary: "#586249"
+  tertiary: "#386663"
+  on_primary: "#cdeda3"
+  on_secondary: "#dce7c8"
+  on_tertiary: "#bcece7"
+  gradient_progress: linear-gradient(145deg,rgba(76, 102, 43, 0.75) 0%, rgba(205, 237, 163, 1) 100%)
+  gradient_track: linear-gradient(145deg,rgba(42, 56, 19, 1) 0%, rgba(233, 255, 199, 1) 100%)
+
+grey:
+  primary: "#006874"
+  secondary: "#4a6267"
+  tertiary: "#525e7d"
+  on_primary: "#9eeffd"
+  on_secondary: "#cde7ec"
+  on_tertiary: "#dae2ff"
+  gradient_progress: linear-gradient(145deg,rgba(0, 104, 116, 0.75) 0%, rgba(158, 239, 253, 1) 100%)
+  gradient_track: linear-gradient(145deg,rgba(0, 56, 64, 1) 0%, rgba(212, 255, 255, 1) 100%)
+
+indigo:
+  primary: "#65558f"
+  secondary: "#625b71"
+  tertiary: "#7e5260"
+  on_primary: "#e9ddff"
+  on_secondary: "#e8def8"
+  on_tertiary: "#ffd9e3"
+  gradient_progress: linear-gradient(145deg,rgba(101, 85, 143, 0.75) 0%, rgba(233, 221, 255, 1) 100%)
+  gradient_track: linear-gradient(145deg,rgba(72, 52, 112, 1) 0%, rgba(255, 250, 250, 1) 100%)
+
+orange:
+  primary: "#815512"
+  secondary: "#705b41"
+  tertiary: "#53643e"
+  on_primary: "#ffddb7"
+  on_secondary: "#fcdebc"
+  on_tertiary: "#d6e9b9"
+  gradient_progress: linear-gradient(145deg,rgba(101, 85, 143, 0.75) 0%, rgba(233, 221, 255, 1) 100%)
+  gradient_track: linear-gradient(145deg,rgba(82, 50, 11, 1) 0%, rgba(255, 238, 219, 1) 100%)
+
+pink:
+  primary: "#8e4956"
+  secondary: "#75565b"
+  tertiary: "#795831"
+  on_primary: "#ffd9de"
+  on_secondary: "#ffd9de"
+  on_tertiary: "#ffddba"
+  gradient_progress: linear-gradient(145deg,rgba(142, 73, 86, 0.75) 0%, rgba(255, 217, 222, 1) 100%)
+  gradient_track: linear-gradient(145deg,rgba(97, 32, 44, 1) 0%, rgba(255, 247, 247, 1) 100%)
+
+teal:
+  primary: "#096b5a"
+  secondary: "#4b635c"
+  tertiary: "#426278"
+  on_primary: "#a1f2dd"
+  on_secondary: "#cde8df"
+  on_tertiary: "#c7e7ff"  
+  gradient_progress: linear-gradient(145deg,rgba(9, 107, 90, 0.75) 0%, rgba(161, 242, 221, 1) 100%)
+  gradient_track: linear-gradient(145deg,rgba(5, 84, 71, 1) 0%, rgba(194, 255, 239, 1) 100%)
+
+yellow:
+  primary: "#6d5e0f"
+  secondary: "#665e40"
+  tertiary: "#43664e"
+  on_primary: "#f8e287"
+  on_secondary: "#eee2bc"
+  on_tertiary: "#c5ecce"
+  gradient_progress: linear-gradient(145deg,rgba(109, 94, 15, 0.75) 0%, rgba(248, 226, 135, 1) 100%
+  gradient_track: linear-gradient(145deg,rgba(87, 75, 7, 1) 0%, rgba(255, 245, 204, 1) 100%)
+
