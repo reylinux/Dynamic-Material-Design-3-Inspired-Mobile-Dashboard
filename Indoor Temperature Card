@@ -1,0 +1,469 @@
+type: vertical-stack
+cards:
+  - type: custom:mushroom-title-card
+    title: Room Temperature
+    card_mod:
+      style: |
+        ha-card {
+          --title-font-size: 20px !important;
+        }
+  - type: custom:stack-in-card
+    cards:
+      - type: entities
+        entities:
+          - entity: sensor.outdoor_temperature
+            name: Outside
+            icon: mdi:weather-partly-cloudy
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  {% set temp = states(config.entity) | float %}
+                  {% set percent = ((temp + 10) / 50 * 100) | round(1) %}
+
+                  {% if temp < 16 %}
+                    {% set rgb_light = '206,178,245' %}
+                    {% set rgb_dark  = '156,128,195' %}
+                  {% elif temp < 18 %}
+                    {% set rgb_light = '163,217,245' %}
+                    {% set rgb_dark  = '113,167,195' %}
+                  {% elif temp < 22 %}
+                    {% set rgb_light = '205,227,219' %}
+                    {% set rgb_dark  = '155,177,169' %}
+                  {% elif temp < 24 %}
+                    {% set rgb_light = '251,217,160' %}
+                    {% set rgb_dark  = '201,167,110' %}
+                  {% elif temp < 27 %}
+                    {% set rgb_light = '244,168,163' %}
+                    {% set rgb_dark  = '194,118,113' %}
+                  {% else %}
+                    {% set rgb_light = '223,123,116' %}
+                    {% set rgb_dark  = '173,73,66' %}
+                  {% endif %}
+
+                  /* Detect dark mode with CSS media query and set colors accordingly */
+                  --rgb: {{ rgb_light }};
+                  --text-color: black !important;
+
+                  @media (prefers-color-scheme: dark) {
+                    --rgb: {{ rgb_dark }};
+                    --text-color: white !important;
+                  }
+
+                  background:
+                    linear-gradient(95deg,
+                      rgba(var(--rgb), 0.13) 0%,
+                      rgba(var(--rgb), 0.13) {{percent}}%,
+                      rgba(var(--rgb), 0.55) {{percent}}%,
+                      rgba(12,14,18,0.42) 100%
+                    ),
+                    linear-gradient(120deg, 
+                      rgba(255,255,255,0.11) 7%, 
+                      rgba(255,255,255,0.06) 13%, 
+                      rgba(255,255,255,0.00) 38%,
+                      rgba(255,255,255,0.08) 47%, 
+                      rgba(255,255,255,0.00) 70%,
+                      rgba(255,255,255,0.09) 82%,
+                      rgba(255,255,255,0.00) 100%
+                    ),
+                    repeating-linear-gradient(100deg, rgba(255,255,255,0.011) 0 2px, rgba(0,0,0,0.015) 2px 6px);
+                  }
+                }
+          - entity: sensor.living_room_temperature
+            name: Living Area
+            icon: mdi:sofa
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  {% set temp = states(config.entity) | float %}
+                  {% set percent = ((temp + 10) / 50 * 100) | round(1) %}
+
+                  {% if temp < 16 %}
+                    {% set rgb_light = '206,178,245' %}
+                    {% set rgb_dark  = '156,128,195' %}
+                  {% elif temp < 18 %}
+                    {% set rgb_light = '163,217,245' %}
+                    {% set rgb_dark  = '113,167,195' %}
+                  {% elif temp < 22 %}
+                    {% set rgb_light = '205,227,219' %}
+                    {% set rgb_dark  = '155,177,169' %}
+                  {% elif temp < 24 %}
+                    {% set rgb_light = '251,217,160' %}
+                    {% set rgb_dark  = '201,167,110' %}
+                  {% elif temp < 27 %}
+                    {% set rgb_light = '244,168,163' %}
+                    {% set rgb_dark  = '194,118,113' %}
+                  {% else %}
+                    {% set rgb_light = '223,123,116' %}
+                    {% set rgb_dark  = '173,73,66' %}
+                  {% endif %}
+
+                  /* Detect dark mode with CSS media query and set colors accordingly */
+                  --rgb: {{ rgb_light }};
+                  --text-color: black !important;
+
+                  @media (prefers-color-scheme: dark) {
+                    --rgb: {{ rgb_dark }};
+                    --text-color: white !important;
+                  }
+
+                  background:
+                    linear-gradient(95deg,
+                      rgba(var(--rgb), 0.13) 0%,
+                      rgba(var(--rgb), 0.13) {{percent}}%,
+                      rgba(var(--rgb), 0.55) {{percent}}%,
+                      rgba(12,14,18,0.42) 100%
+                    ),
+                    linear-gradient(120deg, 
+                      rgba(255,255,255,0.11) 7%, 
+                      rgba(255,255,255,0.06) 13%, 
+                      rgba(255,255,255,0.00) 38%,
+                      rgba(255,255,255,0.08) 47%, 
+                      rgba(255,255,255,0.00) 70%,
+                      rgba(255,255,255,0.09) 82%,
+                      rgba(255,255,255,0.00) 100%
+                    ),
+                    repeating-linear-gradient(100deg, rgba(255,255,255,0.011) 0 2px, rgba(0,0,0,0.015) 2px 6px);
+                  }
+                }
+          - entity: sensor.master_bedroom_temperature
+            name: Master Bedroom
+            icon: mdi:bed-king
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  {% set temp = states(config.entity) | float %}
+                  {% set percent = ((temp + 10) / 50 * 100) | round(1) %}
+
+                  {% if temp < 16 %}
+                    {% set rgb_light = '206,178,245' %}
+                    {% set rgb_dark  = '156,128,195' %}
+                  {% elif temp < 18 %}
+                    {% set rgb_light = '163,217,245' %}
+                    {% set rgb_dark  = '113,167,195' %}
+                  {% elif temp < 22 %}
+                    {% set rgb_light = '205,227,219' %}
+                    {% set rgb_dark  = '155,177,169' %}
+                  {% elif temp < 24 %}
+                    {% set rgb_light = '251,217,160' %}
+                    {% set rgb_dark  = '201,167,110' %}
+                  {% elif temp < 27 %}
+                    {% set rgb_light = '244,168,163' %}
+                    {% set rgb_dark  = '194,118,113' %}
+                  {% else %}
+                    {% set rgb_light = '223,123,116' %}
+                    {% set rgb_dark  = '173,73,66' %}
+                  {% endif %}
+
+                  /* Detect dark mode with CSS media query and set colors accordingly */
+                  --rgb: {{ rgb_light }};
+                  --text-color: black !important;
+
+                  @media (prefers-color-scheme: dark) {
+                    --rgb: {{ rgb_dark }};
+                    --text-color: white !important;
+                  }
+
+                  background:
+                    linear-gradient(95deg,
+                      rgba(var(--rgb), 0.13) 0%,
+                      rgba(var(--rgb), 0.13) {{percent}}%,
+                      rgba(var(--rgb), 0.55) {{percent}}%,
+                      rgba(12,14,18,0.42) 100%
+                    ),
+                    linear-gradient(120deg, 
+                      rgba(255,255,255,0.11) 7%, 
+                      rgba(255,255,255,0.06) 13%, 
+                      rgba(255,255,255,0.00) 38%,
+                      rgba(255,255,255,0.08) 47%, 
+                      rgba(255,255,255,0.00) 70%,
+                      rgba(255,255,255,0.09) 82%,
+                      rgba(255,255,255,0.00) 100%
+                    ),
+                    repeating-linear-gradient(100deg, rgba(255,255,255,0.011) 0 2px, rgba(0,0,0,0.015) 2px 6px);
+                  }
+                }
+          - entity: sensor.baby_room_temperature
+            name: Baby Room
+            icon: mdi:baby-carriage
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  {% set temp = states(config.entity) | float %}
+                  {% set percent = ((temp + 10) / 50 * 100) | round(1) %}
+
+                  {% if temp < 16 %}
+                    {% set rgb_light = '206,178,245' %}
+                    {% set rgb_dark  = '156,128,195' %}
+                  {% elif temp < 18 %}
+                    {% set rgb_light = '163,217,245' %}
+                    {% set rgb_dark  = '113,167,195' %}
+                  {% elif temp < 22 %}
+                    {% set rgb_light = '205,227,219' %}
+                    {% set rgb_dark  = '155,177,169' %}
+                  {% elif temp < 24 %}
+                    {% set rgb_light = '251,217,160' %}
+                    {% set rgb_dark  = '201,167,110' %}
+                  {% elif temp < 27 %}
+                    {% set rgb_light = '244,168,163' %}
+                    {% set rgb_dark  = '194,118,113' %}
+                  {% else %}
+                    {% set rgb_light = '223,123,116' %}
+                    {% set rgb_dark  = '173,73,66' %}
+                  {% endif %}
+
+                  /* Detect dark mode with CSS media query and set colors accordingly */
+                  --rgb: {{ rgb_light }};
+                  --text-color: black !important;
+
+                  @media (prefers-color-scheme: dark) {
+                    --rgb: {{ rgb_dark }};
+                    --text-color: white !important;
+                  }
+
+                  background:
+                    linear-gradient(95deg,
+                      rgba(var(--rgb), 0.13) 0%,
+                      rgba(var(--rgb), 0.13) {{percent}}%,
+                      rgba(var(--rgb), 0.55) {{percent}}%,
+                      rgba(12,14,18,0.42) 100%
+                    ),
+                    linear-gradient(120deg, 
+                      rgba(255,255,255,0.11) 7%, 
+                      rgba(255,255,255,0.06) 13%, 
+                      rgba(255,255,255,0.00) 38%,
+                      rgba(255,255,255,0.08) 47%, 
+                      rgba(255,255,255,0.00) 70%,
+                      rgba(255,255,255,0.09) 82%,
+                      rgba(255,255,255,0.00) 100%
+                    ),
+                    repeating-linear-gradient(100deg, rgba(255,255,255,0.011) 0 2px, rgba(0,0,0,0.015) 2px 6px);
+                  }
+                }
+          - entity: sensor.single_guest_room_temperature
+            name: Single Guest Room
+            icon: mdi:account-plus
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  {% set temp = states(config.entity) | float %}
+                  {% set percent = ((temp + 10) / 50 * 100) | round(1) %}
+
+                  {% if temp < 16 %}
+                    {% set rgb_light = '206,178,245' %}
+                    {% set rgb_dark  = '156,128,195' %}
+                  {% elif temp < 18 %}
+                    {% set rgb_light = '163,217,245' %}
+                    {% set rgb_dark  = '113,167,195' %}
+                  {% elif temp < 22 %}
+                    {% set rgb_light = '205,227,219' %}
+                    {% set rgb_dark  = '155,177,169' %}
+                  {% elif temp < 24 %}
+                    {% set rgb_light = '251,217,160' %}
+                    {% set rgb_dark  = '201,167,110' %}
+                  {% elif temp < 27 %}
+                    {% set rgb_light = '244,168,163' %}
+                    {% set rgb_dark  = '194,118,113' %}
+                  {% else %}
+                    {% set rgb_light = '223,123,116' %}
+                    {% set rgb_dark  = '173,73,66' %}
+                  {% endif %}
+
+                  /* Detect dark mode with CSS media query and set colors accordingly */
+                  --rgb: {{ rgb_light }};
+                  --text-color: black !important;
+
+                  @media (prefers-color-scheme: dark) {
+                    --rgb: {{ rgb_dark }};
+                    --text-color: white !important;
+                  }
+
+                  background:
+                    linear-gradient(95deg,
+                      rgba(var(--rgb), 0.13) 0%,
+                      rgba(var(--rgb), 0.13) {{percent}}%,
+                      rgba(var(--rgb), 0.55) {{percent}}%,
+                      rgba(12,14,18,0.42) 100%
+                    ),
+                    linear-gradient(120deg, 
+                      rgba(255,255,255,0.11) 7%, 
+                      rgba(255,255,255,0.06) 13%, 
+                      rgba(255,255,255,0.00) 38%,
+                      rgba(255,255,255,0.08) 47%, 
+                      rgba(255,255,255,0.00) 70%,
+                      rgba(255,255,255,0.09) 82%,
+                      rgba(255,255,255,0.00) 100%
+                    ),
+                    repeating-linear-gradient(100deg, rgba(255,255,255,0.011) 0 2px, rgba(0,0,0,0.015) 2px 6px);
+                  }
+                }
+          - entity: sensor.multiple_guest_room_temperature
+            name: Multiple Guest Room
+            icon: mdi:account-group
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  {% set temp = states(config.entity) | float %}
+                  {% set percent = ((temp + 10) / 50 * 100) | round(1) %}
+
+                  {% if temp < 16 %}
+                    {% set rgb_light = '206,178,245' %}
+                    {% set rgb_dark  = '156,128,195' %}
+                  {% elif temp < 18 %}
+                    {% set rgb_light = '163,217,245' %}
+                    {% set rgb_dark  = '113,167,195' %}
+                  {% elif temp < 22 %}
+                    {% set rgb_light = '205,227,219' %}
+                    {% set rgb_dark  = '155,177,169' %}
+                  {% elif temp < 24 %}
+                    {% set rgb_light = '251,217,160' %}
+                    {% set rgb_dark  = '201,167,110' %}
+                  {% elif temp < 27 %}
+                    {% set rgb_light = '244,168,163' %}
+                    {% set rgb_dark  = '194,118,113' %}
+                  {% else %}
+                    {% set rgb_light = '223,123,116' %}
+                    {% set rgb_dark  = '173,73,66' %}
+                  {% endif %}
+
+                  /* Detect dark mode with CSS media query and set colors accordingly */
+                  --rgb: {{ rgb_light }};
+                  --text-color: black !important;
+
+                  @media (prefers-color-scheme: dark) {
+                    --rgb: {{ rgb_dark }};
+                    --text-color: white !important;
+                  }
+
+                  background:
+                    linear-gradient(95deg,
+                      rgba(var(--rgb), 0.13) 0%,
+                      rgba(var(--rgb), 0.13) {{percent}}%,
+                      rgba(var(--rgb), 0.55) {{percent}}%,
+                      rgba(12,14,18,0.42) 100%
+                    ),
+                    linear-gradient(120deg, 
+                      rgba(255,255,255,0.11) 7%, 
+                      rgba(255,255,255,0.06) 13%, 
+                      rgba(255,255,255,0.00) 38%,
+                      rgba(255,255,255,0.08) 47%, 
+                      rgba(255,255,255,0.00) 70%,
+                      rgba(255,255,255,0.09) 82%,
+                      rgba(255,255,255,0.00) 100%
+                    ),
+                    repeating-linear-gradient(100deg, rgba(255,255,255,0.011) 0 2px, rgba(0,0,0,0.015) 2px 6px);
+                  }
+                }
+          - entity: sensor.office_room_temperature
+            name: Office Room
+            icon: mdi:desktop-tower-monitor
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  {% set temp = states(config.entity) | float %}
+                  {% set percent = ((temp + 10) / 50 * 100) | round(1) %}
+
+                  {% if temp < 16 %}
+                    {% set rgb_light = '206,178,245' %}
+                    {% set rgb_dark  = '156,128,195' %}
+                  {% elif temp < 18 %}
+                    {% set rgb_light = '163,217,245' %}
+                    {% set rgb_dark  = '113,167,195' %}
+                  {% elif temp < 22 %}
+                    {% set rgb_light = '205,227,219' %}
+                    {% set rgb_dark  = '155,177,169' %}
+                  {% elif temp < 24 %}
+                    {% set rgb_light = '251,217,160' %}
+                    {% set rgb_dark  = '201,167,110' %}
+                  {% elif temp < 27 %}
+                    {% set rgb_light = '244,168,163' %}
+                    {% set rgb_dark  = '194,118,113' %}
+                  {% else %}
+                    {% set rgb_light = '223,123,116' %}
+                    {% set rgb_dark  = '173,73,66' %}
+                  {% endif %}
+
+                  /* Detect dark mode with CSS media query and set colors accordingly */
+                  --rgb: {{ rgb_light }};
+                  --text-color: black !important;
+
+                  @media (prefers-color-scheme: dark) {
+                    --rgb: {{ rgb_dark }};
+                    --text-color: white !important;
+                  }
+
+                  background:
+                    linear-gradient(95deg,
+                      rgba(var(--rgb), 0.13) 0%,
+                      rgba(var(--rgb), 0.13) {{percent}}%,
+                      rgba(var(--rgb), 0.55) {{percent}}%,
+                      rgba(12,14,18,0.42) 100%
+                    ),
+                    linear-gradient(120deg, 
+                      rgba(255,255,255,0.11) 7%, 
+                      rgba(255,255,255,0.06) 13%, 
+                      rgba(255,255,255,0.00) 38%,
+                      rgba(255,255,255,0.08) 47%, 
+                      rgba(255,255,255,0.00) 70%,
+                      rgba(255,255,255,0.09) 82%,
+                      rgba(255,255,255,0.00) 100%
+                    ),
+                    repeating-linear-gradient(100deg, rgba(255,255,255,0.011) 0 2px, rgba(0,0,0,0.015) 2px 6px);
+                  }
+                }
+          - entity: sensor.guest_bathroom_temperature
+            name: Guest Bathroom
+            icon: mdi:water
+            card_mod:
+              style: |
+                hui-generic-entity-row {
+                  {% set temp = states(config.entity) | float %}
+                  {% set percent = ((temp + 10) / 50 * 100) | round(1) %}
+
+                  {% if temp < 16 %}
+                    {% set rgb_light = '206,178,245' %}
+                    {% set rgb_dark  = '156,128,195' %}
+                  {% elif temp < 18 %}
+                    {% set rgb_light = '163,217,245' %}
+                    {% set rgb_dark  = '113,167,195' %}
+                  {% elif temp < 22 %}
+                    {% set rgb_light = '205,227,219' %}
+                    {% set rgb_dark  = '155,177,169' %}
+                  {% elif temp < 24 %}
+                    {% set rgb_light = '251,217,160' %}
+                    {% set rgb_dark  = '201,167,110' %}
+                  {% elif temp < 27 %}
+                    {% set rgb_light = '244,168,163' %}
+                    {% set rgb_dark  = '194,118,113' %}
+                  {% else %}
+                    {% set rgb_light = '223,123,116' %}
+                    {% set rgb_dark  = '173,73,66' %}
+                  {% endif %}
+
+                  /* Detect dark mode with CSS media query and set colors accordingly */
+                  --rgb: {{ rgb_light }};
+                  --text-color: black !important;
+
+                  @media (prefers-color-scheme: dark) {
+                    --rgb: {{ rgb_dark }};
+                    --text-color: white !important;
+                  }
+
+                  background:
+                    linear-gradient(95deg,
+                      rgba(var(--rgb), 0.13) 0%,
+                      rgba(var(--rgb), 0.13) {{percent}}%,
+                      rgba(var(--rgb), 0.55) {{percent}}%,
+                      rgba(12,14,18,0.42) 100%
+                    ),
+                    linear-gradient(120deg, 
+                      rgba(255,255,255,0.11) 7%, 
+                      rgba(255,255,255,0.06) 13%, 
+                      rgba(255,255,255,0.00) 38%,
+                      rgba(255,255,255,0.08) 47%, 
+                      rgba(255,255,255,0.00) 70%,
+                      rgba(255,255,255,0.09) 82%,
+                      rgba(255,255,255,0.00) 100%
+                    ),
+                    repeating-linear-gradient(100deg, rgba(255,255,255,0.011) 0 2px, rgba(0,0,0,0.015) 2px 6px);
+                  }
+                }
