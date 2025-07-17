@@ -1,0 +1,14 @@
+type: custom:mushroom-template-card
+entity: media_player.all_speakers
+icon: ""
+secondary: >
+  {% set speakers = state_attr('media_player.all_speakers', 'entity_id') %}
+
+  {% set playing_count = speakers | select('is_state', 'playing') | list |
+  length %}
+
+  {{ playing_count }} speaker{{ 's' if playing_count != 1 else '' }} {{ 'are' if
+  playing_count != 1 else 'is' }} playing
+tap_action:
+  action: none
+primary: ""
