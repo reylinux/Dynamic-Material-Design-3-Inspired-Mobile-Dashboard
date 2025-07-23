@@ -24,6 +24,7 @@ Below is a list of everything you’ll need to install from HACS to achieve a 10
 - [Expander Card](https://github.com/Alia5/lovelace-expander-card)
 - [Mushroom](https://github.com/piitaya/lovelace-mushroom)
 - [My-slilder-v2](https://github.com/AnthonMS/my-cards/blob/main/docs/cards/slider-v2.md)
+- [Navbar Card](https://github.com/joseluis9595/lovelace-navbar-card)
 
 **Graphs**
 - [Mini Graph Card](https://github.com/kalkih/mini-graph-card)
